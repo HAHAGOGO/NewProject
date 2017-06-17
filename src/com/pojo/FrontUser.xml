@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pojo.FrontUser">
+	<select id="getFrontUser" parameterType="java.util.Map"
+		resultType="com.pojo.FrontUser">
+		select frontid,loginname as loginName,loginpwd,realname as
+		realName,nickname
+		as nickName,picpath as picPath,cardno,mobilephone as
+		mobilePhone,email,user_status as userStatus,user_desc as userDesc from
+		front_user where loginname=#{loginname} and loginpwd=#{loginpwd}
+	</select>
+	<update id="updateStatus" parameterType="java.lang.Integer">
+		update front_user set
+		user_status='1' where frontid=#{num}
+	</update>
+	<select id="checkPhone" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(frontid) from front_user where
+		frontid=#{frontid} and
+		mobilephone=#{phone}
+
+	</select>
+
+</mapper>

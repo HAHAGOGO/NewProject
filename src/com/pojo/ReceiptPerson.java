@@ -7,6 +7,13 @@ public class ReceiptPerson {
 	private Integer userid;
 	private Area area;
 	private String addressinfo;
+	private String status;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Integer getPid() {
 		return pid;
 	}
@@ -43,5 +50,15 @@ public class ReceiptPerson {
 	public void setAddressinfo(String addressinfo) {
 		this.addressinfo = addressinfo;
 	}
+	@Override
+	public String toString() {
+		return "ReceiptPerson [pid=" + pid + ", pname=" + pname + ", phone="
+				+ phone + ", userid=" + userid + ", area=" + area
+				+ ", addressinfo=" + addressinfo + ", status=" + status + "]";
+	}
+	
+
+
+	
 
 }
