@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pojo.City">
+<select id="queryCityByID" parameterType="java.lang.String" resultMap="qcbi">
+select id,cityID,city,father from hat_city where cityID=#{num}
+
+
+</select>
+<resultMap type="com.pojo.City" id="qcbi">
+<id property="id" column="id"/>
+<result property="cityID" column="cityID"/>
+<result property="city" column="city"/>
+<association property="province" column="father" select="com.pojo.Province.queryProvinceByID"></association>
+
+</resultMap>
+
+</mapper>

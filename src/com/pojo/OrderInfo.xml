@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IOrderInfoDAO">
+
+
+	<insert id="save" parameterType="com.pojo.OrderInfo"
+		useGeneratedKeys="true" keyProperty="orderid">
+		insert into
+		order_info(frontid,addressid,orderstatus,totalprice,totalnum,expressid,ordertime,deadline)
+		values(#{frontid},#{receipt.pid},#{orderstatus},#{totalprice},#{totalnum},#{expressid},now(),DATE_ADD(now(),INTERVAL
+		24 DAY_HOUR))
+	</insert>
+
+	<resultMap type="com.pojo.OrderInfo" id="orderinfo">
+		<id property="orderid" column="orderid"></id>
+		<result property="frontid" column="frontid"></result>
+		<result property="orderstatus" column="totalprice"></result>
+		<result property="totalnum" column="totalnum"></result>
+<!-- 		<result property="expressid" column="expressid"></result>
+ -->		<result property="ordertime" column="ordertime"></result>
+		<result property="deadline" column="deadline"></result>
+		
+		<association property="expressSelect" column="expressid"
+			javaType="com.pojo.ExpressSelect" select="com.dao.IExpressSelectDao.findByID">
+		</association>
+		
+		<association property="receipt" column="addressid"
+			javaType="com.pojo.ReceiptPerson" select="com.pojo.ReceiptPerson.queryByID">
+		</association>
+		<collection property="orderItem" column="orderid"
+			javaType="java.util.ArrayList" ofType="com.pojo.OrderDetail" select="com.dao.IOrderDetailDAO.findById"></collection>
+
+	</resultMap>
+	<select id="findById" parameterType="java.lang.Integer"
+		resultMap="orderinfo">
+		select
+		orderid,frontid,addressid,orderstatus,totalprice,totalnum,expressid,ordertime,deadline
+		from order_info where orderid=#{orderid};
+	</select>
+
+	<select id="findByStatus" parameterType="com.pojo.OrderInfo"
+		resultMap="orderinfo">
+		select
+		orderid,frontid,addressid,orderstatus,totalprice,totalnum,expressid,ordertime,deadline
+		from order_info
+		<where>
+			<if test="frontid !=null">frontid=${#frontid}</if>
+			<if test="orderstatus !=null "> and orderstatus=#{orderstatus}</if>
+		</where>
+	</select>
+
+</mapper>
