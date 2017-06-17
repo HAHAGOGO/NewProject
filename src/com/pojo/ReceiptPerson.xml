@@ -4,25 +4,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pojo.ReceiptPerson">
 	<insert id="addReceiptPerson" parameterType="com.pojo.ReceiptPerson">
-		insert into receipt_person (p_name,phone,contact_userid,areaID,addressinfo)
+		insert into
+		receipt_person (p_name,phone,contact_userid,areaID,addressinfo)
 		values
 		(#{pname},#{phone},#{userid},#{area.areaID},#{addressinfo})
 
 	</insert>
 	<select id="queryByID" parameterType="java.lang.Integer"
 		resultMap="aa">
-		select p_id,p_name,phone,contact_userid,addressinfo,areaID from
+		select
+		p_id,p_name,phone,contact_userid,addressinfo,areaID,p_status from
 		receipt_person where p_id=#{num};
 	</select>
+	<select id="queryByUserID" parameterType="java.lang.Integer"
+		resultMap="aa">
+		select
+		p_id,p_name,phone,contact_userid,addressinfo,areaID,p_status from
+		receipt_person where contact_userid=#{num};
+	</select>
+	<delete id="deleteByRPID" parameterType="java.lang.Integer">
+		delete from
+		receipt_person where p_id=#{num}
+	</delete>
 	<resultMap type="com.pojo.ReceiptPerson" id="aa">
-	
+
 		<id property="pid" column="p_id" />
 		<result property="pname" column="p_name" />
 		<result property="phone" column="phone" />
+		<result property="status" column="p_status" />
 		<result property="userid" column="contact_userid" />
 		<result property="addressinfo" column="addressinfo" />
-		<association property="area" column="areaid"  select="com.pojo.Area.queryAreaByID" ></association>
-		                                                  
+		<association property="area" column="areaid"
+			select="com.pojo.Area.queryAreaByID"></association>
+
 	</resultMap>
+	<update id="update" parameterType="com.pojo.ReceiptPerson">
+		update receipt_person set
+		p_name=#{pname},phone=#{phone},areaid=#{area.areaID},addressinfo=#{addressinfo}
+		where p_id=#{pid}
+	</update>
+	<update id="updateInit">
+
+		update receipt_person set p_status='0' where
+		p_status='1'
+	</update>
+	<update id="updateStatus" parameterType="java.lang.Integer">
+
+		update receipt_person
+		set p_status='1' where p_id=#{num}
+	</update>
 
 </mapper>
