@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IOrderDetailDAO">
+	<insert id="batchDeleteMap" parameterType="java.util.Map">
+		insert into order_detail(orderid,goodid,price,status,quantity) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{orderid},#{item.goodid},#{item.price},#{item.status},#{item.quantity})
+		</foreach>
+	</insert>
+	<resultMap type="com.pojo.OrderDetail" id="orderdetailinfo">
+		<id property="detailid" column="detailid"></id>
+		<result property="orderid" column="orderid"></result>
+		<result property="price" column="price"></result>
+		<result property="status" column="status"></result>
+		<result property="quantity" column="quantity"></result>
+	</resultMap>
+	
+	<select id="findById" parameterType="java.lang.Integer" resultType="com.pojo.OrderDetail">
+	select detailid,orderid,price,status,quantity from order_detail where orderid=#{orderid};
+	</select>
+</mapper>

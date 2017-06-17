@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pojo.GoodInfo">
+  	<select id="findByGoodId" parameterType="java.lang.Integer" resultType="com.pojo.GoodInfo">
+  		select goodid as goodId,
+  		styleid as styleId,
+  		good_name as goodName,
+  		good_original_price as goodOriginalPrice,
+  		good_pic_path as goodPicPath,
+  		good_discounted_price as goodDiscountedPrice,
+  		good_desc as goodDesc,
+  		specification,
+  		free_delivery as freeDelivery,
+  		sals_num as salsNum,
+  		good_status as goodStatus 
+  		from good_info where goodid=#{goodId}
+  	</select>
+  	
+  	<select id="findByStyleId" parameterType="java.util.Map" resultType="com.pojo.GoodInfo">
+  		select goodid as goodId,
+  		styleid as styleId,
+  		good_name as goodName,
+  		good_original_price as goodOriginalPrice,
+  		good_pic_path as goodPicPath,
+  		good_discounted_price as goodDiscountedPrice,
+  		good_desc as goodDesc,
+  		specification,
+  		free_delivery as freeDelivery,
+  		sals_num as salsNum,
+  		good_status as goodStatus 
+  		from good_info where styleid=#{styleId} limit #{start},#{ps}
+  	</select>
+  	
+  	<select id="findAll" parameterType="java.util.Map" resultType="com.pojo.GoodInfo">
+  		select goodid as goodId,
+  		styleid as styleId,
+  		good_name as goodName,
+  		good_original_price as goodOriginalPrice,
+  		good_pic_path as goodPicPath,
+  		good_discounted_price as goodDiscountedPrice,
+  		good_desc as goodDesc,
+  		specification,
+  		free_delivery as freeDelivery,
+  		sals_num as salsNum,
+  		good_status as goodStatus 
+  		from good_info 
+		<where>
+			<if test="styleid!=null">and styleid=#{styleId}</if>
+		</where>			  		
+  		limit #{start},#{ps}
+  	</select>
+</mapper>

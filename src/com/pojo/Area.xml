@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pojo.Area">
+<select id="queryAreaByID" parameterType="java.lang.String" resultMap="ss">
+select id,areaID,area,father from hat_area where areaID=#{areaid}
+
+
+</select>
+<resultMap type="com.pojo.Area" id="ss">
+<id property="id" column="id"/>
+<result property="areaID" column="areaID"/>
+<result property="area" column="area"/>
+<association property="city" column="father" select="com.pojo.City.queryCityByID"></association>
+</resultMap>
+
+</mapper>
