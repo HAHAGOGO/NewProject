@@ -36,10 +36,25 @@ public class FrontUserController {
 	}
 
 	@RequestMapping(value = "sendMessage", method = RequestMethod.POST)
-	private void code(String phone, HttpSession session) {
+	private void code(String phone, HttpSession session,HttpServletResponse response) {
+		PrintWriter writer=null;
+		try {
+			 writer = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Integer frontid = ((FrontUser)session.getAttribute("user")).getFrontid();
+		Integer integer = frontService.checkPhone(phone, frontid.toString());
+		if(integer>0){
 		session.removeAttribute("code");
 		String code = SendMessage.sendMessage(phone);
 		session.setAttribute("code", code);
+		writer.write("1");
+		return;
+		}
+			
+		writer.write("0");
 
 	}
 
@@ -55,10 +70,13 @@ public class FrontUserController {
 			e.printStackTrace();
 		}
 		if (ocode.equals(code)) {
-			writer.write(1);
+			Integer integer = ((FrontUser)session.getAttribute("user")).getFrontid();
+			boolean b = frontService.updateStatus(integer);
+			
+			writer.write(b?"1":"2");
 
 		} else {
-			writer.write(0);
+			writer.write("0");
 		}
 
 	}

@@ -14,5 +14,10 @@ select id,areaID,area,father from hat_area where areaID=#{areaid}
 <result property="area" column="area"/>
 <association property="city" column="father" select="com.pojo.City.queryCityByID"></association>
 </resultMap>
+<select id="queryAreaByFather" parameterType="java.lang.String" resultType="com.pojo.Area">
+
+select id,areaID,area from hat_area where father=#{num}
+
+</select>
 
 </mapper>

@@ -15,5 +15,10 @@ select id,cityID,city,father from hat_city where cityID=#{num}
 <association property="province" column="father" select="com.pojo.Province.queryProvinceByID"></association>
 
 </resultMap>
+<select id="queryCityByFather" parameterType="java.lang.String" resultType="com.pojo.City">
+select id,cityID,city from hat_city where father=#{num}
+
+
+</select>
 
 </mapper>
