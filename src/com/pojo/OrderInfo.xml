@@ -16,8 +16,7 @@
 		<result property="frontid" column="frontid"></result>
 		<result property="orderstatus" column="totalprice"></result>
 		<result property="totalnum" column="totalnum"></result>
-<!-- 		<result property="expressid" column="expressid"></result>
- -->		<result property="ordertime" column="ordertime"></result>
+		<result property="ordertime" column="ordertime"></result>
 		<result property="deadline" column="deadline"></result>
 		
 		<association property="expressSelect" column="expressid"
