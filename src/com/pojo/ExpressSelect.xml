@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dao.IExpressSelectDao">
-	<select id="findByID">
+	<select id="findByID" parameterType="int" resultType="com.pojo.ExpressSelect">
 		select a.expressid as expressid,a.express_name as
 		 		express_name,a.express_status as express_status
 		 from express_select a where expressid=${expressid};

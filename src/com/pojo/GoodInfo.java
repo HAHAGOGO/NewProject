@@ -2,7 +2,6 @@ package com.pojo;
 
 import java.io.Serializable;
 
-import com.sun.javafx.collections.MappingChange.Map;
 
 public class GoodInfo implements Serializable{
 	private Integer goodId;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.IGoodInfoDao;
 import com.pojo.GoodInfo;
-import com.sun.javafx.collections.MappingChange.Map;
+import java.util.Map;
 import com.service.IGoodInfoService;
 @Service
 public class GoodInfoServiceImpl implements IGoodInfoService {
