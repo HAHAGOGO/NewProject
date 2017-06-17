@@ -21,8 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="phone" column="phone" />
 		<result property="userid" column="contact_userid" />
 		<result property="addressinfo" column="addressinfo" />
-		<association property="area" column="areaid"  select="com.pojo.Area.queryAreaByID" ></association>
-		                                                  
+		<association property="area" column="areaid"  select="com.pojo.Area.queryAreaByID" ></association>		                                                  
 	</resultMap>
 
 </mapper>
