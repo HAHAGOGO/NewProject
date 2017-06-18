@@ -45,16 +45,15 @@ public class FrontUserController {
 			e.printStackTrace();
 		}
 		Integer frontid = ((FrontUser)session.getAttribute("user")).getFrontid();
-		Integer integer = frontService.checkPhone(phone, frontid.toString());
-		if(integer>0){
+		/*Integer integer = frontService.checkPhone(phone, frontid.toString());*/
+		
 		session.removeAttribute("code");
 		String code = SendMessage.sendMessage(phone);
 		session.setAttribute("code", code);
-		writer.write("1");
-		return;
-		}
+		
+		
 			
-		writer.write("0");
+		
 
 	}
 
