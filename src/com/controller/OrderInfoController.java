@@ -84,12 +84,12 @@ public class OrderInfoController {
 	}
 	
 	
-	@RequestMapping(value="payOrder")
+	@RequestMapping(value="payorder")
 	@ResponseBody
 	public String payOrder(OrderInfo or){
 		OrderInfo order = new OrderInfo();
 		order.setOrderid(or.getOrderid());
-		order.setOrderstatus(or.getOrderstatus());
+		order.setOrderstatus(2);
 		boolean flag = service.update(order);
 		if(flag){
 			return "[{result:ok}]";

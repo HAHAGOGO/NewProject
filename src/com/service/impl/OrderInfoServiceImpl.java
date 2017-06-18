@@ -51,14 +51,12 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 
 	@Override
 	public boolean update(OrderInfo order) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.update(order);
 	}
 
 	@Override
 	public boolean delete(Integer orderid) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.delete(orderid);
 	}
 	
 
