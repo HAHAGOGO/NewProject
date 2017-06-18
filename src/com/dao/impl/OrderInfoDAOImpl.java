@@ -1,6 +1,7 @@
 package com.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -35,26 +36,23 @@ public class OrderInfoDAOImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public OrderInfo findById(Integer orderid) {
-		// TODO Auto-generated method stub
 		return super.getSqlSession().selectOne("com.dao.IOrderInfoDAO.findById", orderid);
 	}
 
 	@Override
-	public OrderInfo findByStatus(OrderInfo order) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderInfo> findByStatus(OrderInfo order) {
+		 return super.getSqlSession().selectList("com.dao.IOrderInfoDAO.findByStatus", order);
 	}
 
 	@Override
 	public boolean update(OrderInfo order) {
-		// TODO Auto-generated method stub
-		return false;
+		return super.getSqlSession().update("com.dao.IOrderInfoDAO.findByStatus", order)>0;
 	}
 
 	@Override
 	public boolean delete(Integer orderid) {
 		// TODO Auto-generated method stub
-		return false;
+		return super.getSqlSession().update("com.dao.IOrderInfoDAO.findByStatus", orderid)>0;
 	}
 	
 

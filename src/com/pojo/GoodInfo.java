@@ -1,9 +1,6 @@
 package com.pojo;
 
 import java.io.Serializable;
-
-import java.util.Map;
-
 public class GoodInfo implements Serializable{
 	private Integer goodId;
 	private Integer styleId;

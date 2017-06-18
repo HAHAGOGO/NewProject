@@ -7,8 +7,10 @@
 		<mapper resource="com/pojo/Area.xml" />
 		<mapper resource="com/pojo/City.xml" />
 		<mapper resource="com/pojo/Province.xml" />
-		<mapper resource="com/pojo/FrontUser.xml" />
-		<mapper resource="com/pojo/GoodInfo.xml"/>
-		<mapper resource="com/pojo/GoodStyle.xml"/>
+		<mapper resource="com/pojo/GoodInfo.xml" />
+		<mapper resource="com/pojo/GoodStyle.xml" />
+		<mapper resource="com/pojo/OrderInfo.xml"></mapper>
+		<mapper resource="com/pojo/OrderDetail.xml"></mapper>
+		<mapper resource="com/pojo/ExpressSelect.xml"></mapper>
 	</mappers>
 </configuration>

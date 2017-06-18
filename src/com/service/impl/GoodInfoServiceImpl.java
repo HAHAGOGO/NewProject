@@ -20,12 +20,10 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	}
 	@Override
 	public List<GoodInfo> findByStyleId(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public List<GoodInfo> findAll(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

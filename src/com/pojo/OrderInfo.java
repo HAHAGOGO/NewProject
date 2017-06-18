@@ -18,6 +18,8 @@ public class OrderInfo implements Serializable {
 	private ExpressSelect expressSelect;
 	private Date ordertime;
 	private Date deadline;
+	private String message;
+	
 	private List<OrderDetail> orderItem;
 
 	public Integer getOrderid() {
@@ -103,4 +105,14 @@ public class OrderInfo implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	
 }
