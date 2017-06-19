@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pojo.GoodImage">
+	<select id="getGoodImageByGoodId" parameterType="java.lang.Integer" resultType="com.pojo.GoodImage">
+		select imageid as imageId,
+			goodid as goodId,
+			pic_path as picPath,
+			pic_status as picStatus 
+			from good_image where goodId=#{goodId}
+	</select>
+</mapper>

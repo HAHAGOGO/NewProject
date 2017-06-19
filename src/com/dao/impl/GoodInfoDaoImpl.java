@@ -19,14 +19,13 @@ public class GoodInfoDaoImpl extends SqlSessionDaoSupport implements IGoodInfoDa
 
 	@Override
 	public List<GoodInfo> findByStyleId(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<GoodInfo> findAll(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getSqlSession().selectList("com.pojo.GoodInfo.findAll",map);
 	}
 
 }
