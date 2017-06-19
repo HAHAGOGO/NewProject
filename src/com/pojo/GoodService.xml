@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pojo.GoodService">
+	<select id="getGoodServiceName" parameterType="java.util.ArrayList" resultType="java.lang.String">
+		select ser_type from good_service where serviceid in 
+		<foreach collection="list" item="goodServiceId" open="(" separator="," close=")">
+			#{goodServiceId}
+		</foreach>
+	</select>
+</mapper>
