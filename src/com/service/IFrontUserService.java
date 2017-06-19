@@ -1,3 +1,4 @@
+
 package com.service;
 
 import com.pojo.FrontUser;
@@ -9,3 +10,4 @@ public interface IFrontUserService {
 	public Integer checkOpenID(String openid);
 	public boolean addFrontUser(FrontUser user);
 }
+

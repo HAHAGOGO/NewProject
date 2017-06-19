@@ -1,3 +1,4 @@
+
 package com.service;
 
 import java.util.List;
@@ -10,3 +11,4 @@ public interface IGoodInfoService {
 	List<GoodInfo> findByStyleId(Map<String, Integer> map);
 	List<GoodInfo> findAll(Map<String, Integer> map);
 }
+

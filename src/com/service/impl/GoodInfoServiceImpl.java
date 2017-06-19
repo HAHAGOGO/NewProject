@@ -60,3 +60,4 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	}
 */
 }
+

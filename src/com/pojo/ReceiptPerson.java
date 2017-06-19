@@ -1,3 +1,4 @@
+
 package com.pojo;
 
 public class ReceiptPerson {
@@ -56,9 +57,6 @@ public class ReceiptPerson {
 				+ phone + ", userid=" + userid + ", area=" + area
 				+ ", addressinfo=" + addressinfo + ", status=" + status + "]";
 	}
-	
-
-
 	
 
 }

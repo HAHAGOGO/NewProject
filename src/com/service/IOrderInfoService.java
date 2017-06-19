@@ -1,3 +1,4 @@
+
 package com.service;
 
 import java.util.List;
@@ -11,3 +12,4 @@ public interface IOrderInfoService {
 	public boolean update(OrderInfo order);
 	public boolean delete(Integer orderid);
 }
+

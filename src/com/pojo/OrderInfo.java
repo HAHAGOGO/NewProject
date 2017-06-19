@@ -1,3 +1,4 @@
+
 package com.pojo;
 
 import java.io.Serializable;
@@ -116,3 +117,4 @@ public class OrderInfo implements Serializable {
 	
 	
 }
+

@@ -1,3 +1,4 @@
+
 package com.service.impl;
 
 import javax.annotation.Resource;
@@ -49,3 +50,4 @@ public class IFrontUserServiceImpl implements IFrontUserService {
 	
 
 }
+
