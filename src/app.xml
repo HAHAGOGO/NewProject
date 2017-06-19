@@ -40,11 +40,7 @@
 	</bean>
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<property name="converters">
-			<set>
-				<ref bean="dateConverter" />
-			</set>
-		</property>
+		
 	</bean>
 	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 </beans>

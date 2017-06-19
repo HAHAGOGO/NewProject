@@ -51,12 +51,7 @@ public class FrontUserController {
 		session.removeAttribute("code");
 		String code = SendMessage.sendMessage(phone);
 		session.setAttribute("code", code);
-		
-		
-			
-		
-
-	}
+		}
 
 	@RequestMapping(value = "checkCode", method = RequestMethod.POST)
 	private void checkCode(String code, HttpSession session,
