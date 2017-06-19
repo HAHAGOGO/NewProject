@@ -1,3 +1,4 @@
+
 package com.dao.impl;
 
 import java.util.HashMap;
@@ -58,3 +59,4 @@ public class IFrontUserDAOImpl extends SqlSessionDaoSupport implements
 	
 
 }
+

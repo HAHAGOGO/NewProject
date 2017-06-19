@@ -1,12 +1,14 @@
 package com.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.dao.IGoodInfoDao;
 import com.pojo.GoodInfo;
+
+import java.util.Map;
+
 import com.service.IGoodInfoService;
 @Service
 public class GoodInfoServiceImpl implements IGoodInfoService {
@@ -45,8 +47,6 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		this.goodInfoDaoImpl = goodInfoDaoImpl;
 	}
 
-	
-
 	@Override
 	public List<GoodInfo> findByStyleId(java.util.Map<String, Integer> map) {
 		// TODO Auto-generated method stub
@@ -60,3 +60,4 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	}
 */
 }
+

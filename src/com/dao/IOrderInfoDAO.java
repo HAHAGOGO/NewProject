@@ -1,3 +1,4 @@
+
 package com.dao;
 
 
@@ -13,3 +14,4 @@ public interface IOrderInfoDAO {
 	public boolean delete(Integer orderid);
 	
 }
+

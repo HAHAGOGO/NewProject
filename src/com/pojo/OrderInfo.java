@@ -1,3 +1,4 @@
+
 package com.pojo;
 
 import java.io.Serializable;
@@ -105,4 +106,15 @@ public class OrderInfo implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	
 }
+

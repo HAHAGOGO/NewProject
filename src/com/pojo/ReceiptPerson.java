@@ -1,3 +1,4 @@
+
 package com.pojo;
 
 public class ReceiptPerson {
@@ -50,5 +51,12 @@ public class ReceiptPerson {
 	public void setAddressinfo(String addressinfo) {
 		this.addressinfo = addressinfo;
 	}
+	@Override
+	public String toString() {
+		return "ReceiptPerson [pid=" + pid + ", pname=" + pname + ", phone="
+				+ phone + ", userid=" + userid + ", area=" + area
+				+ ", addressinfo=" + addressinfo + ", status=" + status + "]";
+	}
+	
 
 }
