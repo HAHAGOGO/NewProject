@@ -29,6 +29,7 @@
 </script>
 </head>
 <body>
+<span>${sessionScope.user.nickName }</span>
 	<h1>个人中心</h1>
 	<a>全部订单</a>
 	<a>待付款</a>
@@ -38,7 +39,7 @@
 	<a>退款售后</a>
 	<a href="rpc/qbuid?userid=2">地址管理</a>
 	<a>身份认证</a>
-	<a href="rpc/delete?rpid=10">删除地址</a>
+	<a href="rpc/delete?rpid=8">删除地址</a>
 	<form action="rpc/update" method="post">
 		id<input type="text" name="pid"><br> 姓名<input type="text"
 			name="pname"><br> 电话<input type="text" name="phone"><br>

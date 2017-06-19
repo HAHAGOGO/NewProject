@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cloopen.message.SendMessage;
 import com.pojo.FrontUser;
+import com.pojo.WeChatInfo;
 import com.service.IFrontUserService;
 
 @Controller
@@ -78,6 +79,33 @@ public class FrontUserController {
 			writer.write("0");
 		}
 
+	}
+	@RequestMapping(value="getWeChantInfo",method=RequestMethod.POST)
+	private void getWeChantInfo(WeChatInfo we,HttpSession session,HttpServletResponse response){
+		
+		FrontUser user = new FrontUser();
+		user.setNickName(we.getNickname());
+		user.setPicPath(we.getHeadimgurl());
+		user.setOpenid(we.getOpenid());
+		user.setUserStatus("0");
+		Integer id = frontService.checkOpenID(we.getOpenid());
+		if(id!=null){
+			user.setFrontid(id);
+			
+			
+		}else{
+		frontService.addFrontUser(user);
+		Integer id2 = frontService.checkOpenID(we.getOpenid());
+		user.setFrontid(id2);
+		}
+		session.setAttribute("user", user);
+		
+		try {
+			response.getWriter().print("success");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
