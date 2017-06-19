@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id  property="goodId" column="goodId"/>
 		<result property="cartNumber" column="cartNumber"/>
 		<result property="cartFlag" column="cartFlag"/>
-		<result property="goodName" column="good_name" />
+		<result property="goodName" column="goodName" />
 		<result property="goodDiscountedPrice" column="goodDiscountedPrice"/>
 		<result property="goodPicPath" column="goodPicPath"/>
 		<result property="goodDesc" column="goodDesc"/>
