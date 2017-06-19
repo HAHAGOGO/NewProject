@@ -1,21 +1,24 @@
 package com.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GoodService implements Serializable{
-	private Integer serviceId;
-	private String serviceType;
-	public Integer getServiceId() {
-		return serviceId;
+	private Integer goodId;
+	private List<String> serviceType;
+	
+	public Integer getGoodId() {
+		return goodId;
 	}
-	public void setServiceId(Integer serviceId) {
-		this.serviceId = serviceId;
+	public void setGoodId(Integer goodId) {
+		this.goodId = goodId;
 	}
-	public String getServiceType() {
+	public List<String> getServiceType() {
 		return serviceType;
 	}
-	public void setServiceType(String serviceType) {
+	public void setServiceType(List<String> serviceType) {
 		this.serviceType = serviceType;
 	}
+	
 	
 }

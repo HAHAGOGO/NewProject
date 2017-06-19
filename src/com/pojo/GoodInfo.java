@@ -1,9 +1,7 @@
-
 package com.pojo;
 
 import java.io.Serializable;
-
-import java.util.Map;
+import java.util.List;
 
 public class GoodInfo implements Serializable{
 	private Integer goodId;
@@ -19,6 +17,7 @@ public class GoodInfo implements Serializable{
 	private String goodStatus;
 	private Integer cartNumber;//商品在购物车中的数量
 	private Integer cartFlag;//商品在购物车中是否被选中
+	private List<String> serviceType;
 	public Integer getGoodId() {
 		return goodId;
 	}
@@ -101,6 +100,12 @@ public class GoodInfo implements Serializable{
 	}
 	public void setCartFlag(Integer cartFlag) {
 		this.cartFlag = cartFlag;
+	}
+	public List<String> getServiceType() {
+		return serviceType;
+	}
+	public void setServiceType(List<String> serviceType) {
+		this.serviceType = serviceType;
 	}
 	@Override
 	public String toString() {
