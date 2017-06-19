@@ -1,10 +1,13 @@
 package com.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.dao.IOrderInfoDAO;
+import com.pojo.OrderDetail;
 import com.pojo.OrderInfo;
 import com.service.IOrderInfoService;
 
@@ -16,6 +19,23 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 	
 	@Override
 	public boolean save(OrderInfo order) {
+		if(order==null||order.getOrderItem()==null){
+			return false;
+		}
+		Integer totalnum = order.getTotalnum();
+		
+		if(totalnum==null||totalnum==0){
+			int total_num=0;
+			double total_price=0;
+			List<OrderDetail> orderItem = order.getOrderItem();
+			for (OrderDetail orderDetail : orderItem) {
+				total_num+=orderDetail.getQuantity();
+				total_price+=orderDetail.getPrice();
+			}
+			order.setTotalnum(total_num);
+			order.setTotalprice(total_price);
+		}
+		
 		return dao.save(order);
 	}
 
@@ -25,7 +45,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 	}
 
 	@Override
-	public OrderInfo findByStatus(OrderInfo order) {
+	public List<OrderInfo> findByStatus(OrderInfo order) {
 		return dao.findByStatus(order);
 	}
 

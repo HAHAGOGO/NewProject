@@ -18,6 +18,8 @@ public class OrderInfo implements Serializable {
 	private ExpressSelect expressSelect;
 	private Date ordertime;
 	private Date deadline;
+	private String message;
+	
 	private List<OrderDetail> orderItem;
 
 	public Integer getOrderid() {

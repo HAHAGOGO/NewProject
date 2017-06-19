@@ -38,6 +38,7 @@ public class IReceiptPersonDAOImpl extends SqlSessionDaoSupport implements
 		// TODO Auto-generated method stub
 		List<ReceiptPerson> list = getSqlSession().selectList(
 				"com.pojo.ReceiptPerson.queryByUserID", userid);
+		
 		return list;
 	}
 

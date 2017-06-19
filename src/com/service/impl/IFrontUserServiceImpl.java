@@ -20,4 +20,32 @@ public class IFrontUserServiceImpl implements IFrontUserService {
 		return user;
 	}
 
+	@Override
+	public boolean updateStatus(Integer userid) {
+		// TODO Auto-generated method stub
+		boolean b = frontDAO.updateStatus(userid);
+		return b;
+	}
+
+	@Override
+	public Integer checkPhone(String phone, String frontid) {
+		// TODO Auto-generated method stub
+		Integer integer = frontDAO.checkPhone(phone, frontid);
+		return integer;
+	}
+
+	@Override
+	public Integer checkOpenID(String openid) {
+		// TODO Auto-generated method stub
+		
+		return frontDAO.checkOpenID(openid);
+	}
+
+	@Override
+	public boolean addFrontUser(FrontUser user) {
+		// TODO Auto-generated method stub
+		return frontDAO.addFrontUser(user);
+	}
+	
+
 }

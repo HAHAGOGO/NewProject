@@ -7,6 +7,13 @@ public class ReceiptPerson {
 	private Integer userid;
 	private Area area;
 	private String addressinfo;
+	private String status;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Integer getPid() {
 		return pid;
 	}

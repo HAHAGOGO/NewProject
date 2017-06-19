@@ -1,12 +1,12 @@
 package com.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.dao.IGoodInfoDao;
 import com.pojo.GoodInfo;
-import com.sun.javafx.collections.MappingChange.Map;
 import com.service.IGoodInfoService;
 @Service
 public class GoodInfoServiceImpl implements IGoodInfoService {
@@ -16,8 +16,16 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	public GoodInfo findByGoodId(Integer goodId) {
 		return goodInfoDaoImpl.findByGoodId(goodId);
 	}
-
 	@Override
+	public List<GoodInfo> findByStyleId(Map<String, Integer> map) {
+		return null;
+	}
+	@Override
+	public List<GoodInfo> findAll(Map<String, Integer> map) {
+		return null;
+	}
+
+	/*@Override
 	public List<GoodInfo> findByStyleId(Map<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return null;
@@ -37,4 +45,18 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		this.goodInfoDaoImpl = goodInfoDaoImpl;
 	}
 
+	
+
+	@Override
+	public List<GoodInfo> findByStyleId(java.util.Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GoodInfo> findAll(java.util.Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
 }

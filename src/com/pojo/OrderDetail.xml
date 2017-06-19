@@ -14,9 +14,13 @@
 		<result property="price" column="price"></result>
 		<result property="status" column="status"></result>
 		<result property="quantity" column="quantity"></result>
+		<association property="goodInfo" column="goodid"
+			javaType="com.pojo.GoodInfo" select="com.pojo.GoodInfo.findByGoodId"></association>
 	</resultMap>
-	
-	<select id="findById" parameterType="java.lang.Integer" resultType="com.pojo.OrderDetail">
-	select detailid,orderid,price,status,quantity from order_detail where orderid=#{orderid};
+
+	<select id="findById" parameterType="java.lang.Integer"
+		resultMap="orderdetailinfo">
+		select detailid,orderid,goodid,price,status,quantity from order_detail where
+		orderid=#{orderid};
 	</select>
 </mapper>
