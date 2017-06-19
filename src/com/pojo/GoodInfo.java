@@ -85,13 +85,11 @@ public class GoodInfo implements Serializable{
 		this.goodStatus = goodStatus;
 	}
 	
-	public int getCartFlag() {
+	
+	
+	public Integer getCartFlag() {
 		return cartFlag;
 	}
-	public void setCartFlag(int cartFlag) {
-		this.cartFlag = cartFlag;
-	}
-	
 	public Integer getCartNumber() {
 		return cartNumber;
 	}
@@ -112,7 +110,9 @@ public class GoodInfo implements Serializable{
 		return "GoodInfo [goodId=" + goodId + ", styleId=" + styleId + ", goodName=" + goodName + ", goodOriginalPrice="
 				+ goodOriginalPrice + ", goodPicPath=" + goodPicPath + ", goodDiscountedPrice=" + goodDiscountedPrice
 				+ ", goodDesc=" + goodDesc + ", specification=" + specification + ", freeDelivery=" + freeDelivery
-				+ ", salsNum=" + salsNum + ", goodStatus=" + goodStatus + "]";
+				+ ", salsNum=" + salsNum + ", goodStatus=" + goodStatus + ", cartNumber=" + cartNumber + ", cartFlag="
+				+ cartFlag + ", serviceType=" + serviceType + "]";
 	}
+	
 	
 }
