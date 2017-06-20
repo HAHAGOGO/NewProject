@@ -1,3 +1,4 @@
+
 package com.controller;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cloopen.message.SendMessage;
 import com.pojo.FrontUser;
+import com.pojo.WeChatInfo;
 import com.service.IFrontUserService;
 
 @Controller
@@ -45,16 +47,15 @@ public class FrontUserController {
 			e.printStackTrace();
 		}
 		Integer frontid = ((FrontUser)session.getAttribute("user")).getFrontid();
-		Integer integer = frontService.checkPhone(phone, frontid.toString());
-		if(integer>0){
+		/*Integer integer = frontService.checkPhone(phone, frontid.toString());*/
+		
 		session.removeAttribute("code");
 		String code = SendMessage.sendMessage(phone);
 		session.setAttribute("code", code);
-		writer.write("1");
-		return;
-		}
+		
+		
 			
-		writer.write("0");
+		
 
 	}
 
@@ -80,5 +81,33 @@ public class FrontUserController {
 		}
 
 	}
+	@RequestMapping(value="getWeChantInfo",method=RequestMethod.POST)
+	private void getWeChantInfo(WeChatInfo we,HttpSession session,HttpServletResponse response){
+		
+		FrontUser user = new FrontUser();
+		user.setNickName(we.getNickname());
+		user.setPicPath(we.getHeadimgurl());
+		user.setOpenid(we.getOpenid());
+		user.setUserStatus("0");
+		Integer id = frontService.checkOpenID(we.getOpenid());
+		if(id!=null){
+			user.setFrontid(id);
+			
+			
+		}else{
+		frontService.addFrontUser(user);
+		Integer id2 = frontService.checkOpenID(we.getOpenid());
+		user.setFrontid(id2);
+		}
+		session.setAttribute("user", user);
+		
+		try {
+			response.getWriter().print("success");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
+

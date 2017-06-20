@@ -22,5 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		mobilephone=#{phone}
 
 	</select>
+	<select id="checkOpenId" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select frontid from front_user where openid=#{openid}
+	
+	</select>
+	<insert id="addFrontUser" parameterType="com.pojo.FrontUser">
+	insert into front_user (nickname,picpath,openid,user_status) values (#{nickName},#{picPath},#{openid},#{userStatus})
+	
+	</insert>
 
 </mapper>

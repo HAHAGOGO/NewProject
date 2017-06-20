@@ -1,3 +1,4 @@
+
 package com.dao.impl;
 
 import java.util.HashMap;
@@ -40,6 +41,22 @@ public class IFrontUserDAOImpl extends SqlSessionDaoSupport implements
 		Integer one = getSqlSession().selectOne("com.pojo.FrontUser.checkPhone",map);
 		return one;
 	}
+
+	@Override
+	public Integer checkOpenID(String openid) {
+		// TODO Auto-generated method stub
+		Integer count = getSqlSession().selectOne("com.pojo.FrontUser.checkOpenId", openid);
+		return count;
+	}
+
+	@Override
+	public boolean addFrontUser(FrontUser user) {
+		// TODO Auto-generated method stub
+		int i = getSqlSession().insert("com.pojo.FrontUser.addFrontUser", user);
+		return i>0?true:false;
+	}
+	
 	
 
 }
+

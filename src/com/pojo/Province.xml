@@ -8,4 +8,5 @@ select id,provinceID,province from hat_province where provinceID=#{num}
 </select>
 <select id="queryProvince" resultType="com.pojo.Province">
 select id,provinceID,province from hat_province </select>
+
 </mapper>

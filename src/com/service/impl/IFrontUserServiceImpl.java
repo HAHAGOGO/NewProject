@@ -1,3 +1,4 @@
+
 package com.service.impl;
 
 import javax.annotation.Resource;
@@ -34,4 +35,19 @@ public class IFrontUserServiceImpl implements IFrontUserService {
 		return integer;
 	}
 
+	@Override
+	public Integer checkOpenID(String openid) {
+		// TODO Auto-generated method stub
+		
+		return frontDAO.checkOpenID(openid);
+	}
+
+	@Override
+	public boolean addFrontUser(FrontUser user) {
+		// TODO Auto-generated method stub
+		return frontDAO.addFrontUser(user);
+	}
+	
+
 }
+

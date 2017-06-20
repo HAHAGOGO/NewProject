@@ -1,8 +1,9 @@
+
+
 package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.convert.JsonDateValueProcessor;
-import com.pojo.OrderDetail;
 import com.pojo.OrderInfo;
 import com.service.IOrderInfoService;
 
@@ -30,9 +30,10 @@ public class OrderInfoController {
 	@ResponseBody
 	public String addOrder(OrderInfo order){	
 		System.out.println(order.getOrderItem().size());
-		boolean save = service.save(order);
+		//boolean save = service.save(order);
+		boolean save = false;
 		if(save){
-			return "[{frontid:"+order.getFrontid()+",orderid:"+order.getOrderid()+",}]";
+			return "[{frontid:"+order.getFrontid()+",orderid:"+order.getOrderid()+"}]";
 		}else{
 			return "[{frontid:"+order.getFrontid()+",}]";
 		}
@@ -84,12 +85,12 @@ public class OrderInfoController {
 	}
 	
 	
-	@RequestMapping(value="payorder")
+	@RequestMapping(value="payOrder")
 	@ResponseBody
 	public String payOrder(OrderInfo or){
 		OrderInfo order = new OrderInfo();
 		order.setOrderid(or.getOrderid());
-		order.setOrderstatus(2);
+		order.setOrderstatus(or.getOrderstatus());
 		boolean flag = service.update(order);
 		if(flag){
 			return "[{result:ok}]";

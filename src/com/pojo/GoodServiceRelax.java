@@ -4,18 +4,19 @@ import java.io.Serializable;
 
 public class GoodServiceRelax implements Serializable{
 	private Integer goodId;
-	private Integer serviceId;
+	private int[] serviceId;
 	public Integer getGoodId() {
 		return goodId;
 	}
 	public void setGoodId(Integer goodId) {
 		this.goodId = goodId;
 	}
-	public Integer getServiceId() {
+	public int[] getServiceId() {
 		return serviceId;
 	}
-	public void setServiceId(Integer serviceId) {
+	public void setServiceId(int[] serviceId) {
 		this.serviceId = serviceId;
 	}
+	
 	
 }
