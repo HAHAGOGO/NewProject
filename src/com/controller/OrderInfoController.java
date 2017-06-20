@@ -30,7 +30,6 @@ public class OrderInfoController {
 	@RequestMapping(value="addorder")
 	@ResponseBody
 	public String addOrder(@RequestBody OrderInfo order){	
-		System.out.println(order.getOrderItem().size());
 		boolean save = service.save(order);
 		if(save){
 			return "[{frontid:"+order.getFrontid()+",orderid:"+order.getOrderid()+"}]";
