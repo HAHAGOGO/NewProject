@@ -14,6 +14,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,10 +29,9 @@ public class OrderInfoController {
 	IOrderInfoService service;
 	@RequestMapping(value="addorder")
 	@ResponseBody
-	public String addOrder(OrderInfo order){	
+	public String addOrder(@RequestBody OrderInfo order){	
 		System.out.println(order.getOrderItem().size());
-		//boolean save = service.save(order);
-		boolean save = false;
+		boolean save = service.save(order);
 		if(save){
 			return "[{frontid:"+order.getFrontid()+",orderid:"+order.getOrderid()+"}]";
 		}else{
