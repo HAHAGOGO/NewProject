@@ -58,8 +58,8 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 				return false;
 			}
 		}
-		boolean addGood = goodInfoDaoImpl.addGood(goodInfo);
-		if (addGood) {
+		boolean updateFlag = goodInfoDaoImpl.updateGood(goodInfo);
+		if (updateFlag) {
 			return true;
 		}
 		return false;

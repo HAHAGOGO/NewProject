@@ -62,7 +62,7 @@
   			<set>
   				<if test="styleId!=null">styleid=#{styleId},</if>
   				<if test="goodName!=null">good_name=#{goodName},</if>
-  				<if test="oodOriginalPrice!=null">good_original_price=#{goodOriginalPrice},</if>
+  				<if test="goodOriginalPrice!=null">good_original_price=#{goodOriginalPrice},</if>
   				<if test="goodPicPath!=null">good_pic_path=#{goodPicPath},</if>
   				<if test="goodDiscountedPrice!=null">good_discounted_price=#{goodDiscountedPrice},</if>
   				<if test="goodDesc!=null">good_desc=#{goodDesc},</if>
