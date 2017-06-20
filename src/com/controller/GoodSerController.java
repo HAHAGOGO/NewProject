@@ -39,13 +39,20 @@ public class GoodSerController {
 		model.addAttribute("goods", goods);
 		return "file/zwj/ser/files/list_goods";
 	}
-
+	/**
+	 * 进入到商品详情或者添加商品页面
+	 * @param goodId
+	 * @param option
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("sgd")
 	public String skipGoodDetail(Integer goodId,String option,Model model){
 		if ("update".equals(option)) {
 			model.addAttribute("type", "编辑");
 		}
 		GoodInfo goodInfo = goodInfoServiceImpl.findByGoodId(goodId);
+		Integer styleId = goodInfo.getStyleId();
 		List<String> goodservice = goodServiceImpl.getGoodServiceName(goodId);
 		goodInfo.setServiceType(goodservice);
 		List<ServiceType> serviceTypes = goodServiceImpl.getAllServiceAndChecked(goodId);
@@ -53,6 +60,7 @@ public class GoodSerController {
 		model.addAttribute("good", goodInfo);
 		model.addAttribute("allService", serviceTypes);
 		model.addAttribute("goodStyle", goodStyle);
+		model.addAttribute("sId", styleId);
 		return "file/zwj/ser/goods/gooddetail";
 	}
 	
