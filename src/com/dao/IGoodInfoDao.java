@@ -10,6 +10,7 @@ public interface IGoodInfoDao {
 	List<GoodInfo> findByStyleId(Map<String, Integer> map);
 	List<GoodInfo> findAll(Map<String, Integer> map);
 	
-	boolean addGood(GoodInfo goodInfo);
+	Integer addGood(GoodInfo goodInfo);
 	boolean updateGood(GoodInfo goodInfo);
+	boolean deleteGood(Integer goodId);
 }

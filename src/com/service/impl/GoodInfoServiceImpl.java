@@ -41,8 +41,18 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		return goodInfoDaoImpl.findAll(map);
 	}
 	@Override
-	public boolean addGood(GoodInfo goodInfo) {
-		return false;
+	public boolean addGood(GoodInfo goodInfo, String[] serviceId) {
+		Integer goodId = goodInfoDaoImpl.addGood(goodInfo);
+		if (goodId<0) {
+			return false;
+		}
+		for (int i = 0; i < serviceId.length; i++) {
+			boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
+			if (!flag) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -64,7 +74,14 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		}
 		return false;
 	}
-	
+	@Override
+	public boolean deleteGood(Integer goodId) {
+		boolean deleteFlag = goodServiceRelaxDaoImpl.deleteRelax(goodId);
+		if (!deleteFlag) {
+			return false;
+		}
+		return goodInfoDaoImpl.deleteGood(goodId);
+	}
 	public IGoodInfoDao getGoodInfoDaoImpl() {
 		return goodInfoDaoImpl;
 	}
@@ -80,6 +97,8 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	public void setGoodServiceRelaxDaoImpl(IGoodServiceRelaxDao goodServiceRelaxDaoImpl) {
 		this.goodServiceRelaxDaoImpl = goodServiceRelaxDaoImpl;
 	}
+
+	
 
 	
 	

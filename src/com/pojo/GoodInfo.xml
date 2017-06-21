@@ -50,7 +50,7 @@
   		limit #{start},#{ps}
   	</select>
   	
-  	<insert id="addGood" parameterType="com.pojo.GoodInfo">
+  	<insert id="addGood" parameterType="com.pojo.GoodInfo" useGeneratedKeys="true" keyProperty="goodId">
   		insert into good_info(styleid,good_name,good_original_price,good_pic_path,
   		good_discounted_price,good_desc,specification,free_delivery,good_status) 
   		values(#{styleId},#{goodName},#{goodOriginalPrice},#{goodPicPath},
@@ -72,4 +72,8 @@
   			</set>
   			where goodid=#{goodId}
   	</update>
+  	
+  	<delete id="deleteGood" parameterType="java.lang.Integer">
+  		delete from good_info where goodid=#{goodId}
+  	</delete>
 </mapper>

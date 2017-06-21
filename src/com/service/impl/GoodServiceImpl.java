@@ -27,6 +27,9 @@ public class GoodServiceImpl implements IGoodService {
 	@Override
 	public List<ServiceType> getAllServiceAndChecked(Integer goodId) {
 		List<ServiceType> list = goodServiceDaoImpl.getAllServiceAndChecked();
+		if (goodId==null) {
+			return list;
+		}
 		List<Integer> goodServiceId = goodServiceRelaxDaoImpl.getGoodServiceId(goodId);
 		for (int i = 0; i < goodServiceId.size(); i++) {
 			Integer integer = goodServiceId.get(i);
