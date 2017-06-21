@@ -29,7 +29,7 @@ $(function(){
 		url:"order/addorder",
  		contentType:'application/json;charset=UTF-8',
 		//data:orderItems,
-		data:JSON.stringify({'frontid':1,orderItem:[{'goodid':1,'quantity':3,'price':23}]}),
+		data:JSON.stringify({'frontid':1,expressSelect:{'expressid':1},orderItem:[{'goodInfo':{'goodId':1},'quantity':3,'price':23},{'goodInfo':{'goodId':2},'quantity':3,'price':23}]}),
 		dataType:"text",
 		type:'post',
 		success:function(data){

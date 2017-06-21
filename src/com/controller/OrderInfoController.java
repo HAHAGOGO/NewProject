@@ -14,11 +14,13 @@ import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.convert.JsonDateValueProcessor;
+import com.convert.Page;
 import com.pojo.OrderInfo;
 import com.service.IOrderInfoService;
 
@@ -30,7 +32,8 @@ public class OrderInfoController {
 	@RequestMapping(value="addorder")
 	@ResponseBody
 	public String addOrder(@RequestBody OrderInfo order){	
-		boolean save = service.save(order);
+		System.out.println(order.getOrderItem().get(0).getGoodInfo());
+		boolean save =service.save(order);
 		if(save){
 			return "[{frontid:"+order.getFrontid()+",orderid:"+order.getOrderid()+"}]";
 		}else{
@@ -55,7 +58,6 @@ public class OrderInfoController {
 			out.write(array.toString());
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ;
@@ -64,7 +66,6 @@ public class OrderInfoController {
 	
 	@RequestMapping(value="showall")//fron
 	public void showOrderInfo(OrderInfo order,HttpServletResponse response){
-		System.out.println(order.getFrontid());
 		  List<OrderInfo> list = service.findByStatus(order);
 		JsonConfig jsonConfig = new JsonConfig();  
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
@@ -89,11 +90,32 @@ public class OrderInfoController {
 	public String payOrder(OrderInfo or){
 		OrderInfo order = new OrderInfo();
 		order.setOrderid(or.getOrderid());
-		order.setOrderstatus(or.getOrderstatus());
+		order.setOrderstatus(2);
 		boolean flag = service.update(order);
 		if(flag){
-			return "[{result:ok}]";
+			return "{result:ok}";
 		}
-		return "[{result:error}]";
+		return "{result:error}";
+	}
+	
+	@RequestMapping(value="update")
+	@ResponseBody
+	public String update(OrderInfo or){
+		System.out.println("getOrderstatus "+or.getOrderstatus());
+		OrderInfo order = new OrderInfo();
+		order.setOrderid(or.getOrderid());
+		order.setOrderstatus(or.getOrderstatus());
+		boolean flag =service.update(order);
+		if(flag){
+			return "{result:'ok'}";
+		}
+		return "{result:'error'}";
+	}
+	
+	@RequestMapping(value="showpages")
+	public String showPages(Integer cp,Integer rows,Model model){
+		Page<OrderInfo> pages = service.findPages(cp, rows);
+		model.addAttribute("pages", pages);
+		return "file/chen/orderlist";
 	}
 }

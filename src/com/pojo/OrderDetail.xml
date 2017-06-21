@@ -5,7 +5,7 @@
 		insert into order_detail(orderid,goodid,price,status,quantity) values
 		<foreach collection="list" item="item" index="index"
 			separator=",">
-			(#{orderid},#{item.goodid},#{item.price},#{item.status},#{item.quantity})
+			(#{orderid},#{item.goodInfo.goodId},#{item.price},#{item.status},#{item.quantity})
 		</foreach>
 	</insert>
 	<resultMap type="com.pojo.OrderDetail" id="orderdetailinfo">
