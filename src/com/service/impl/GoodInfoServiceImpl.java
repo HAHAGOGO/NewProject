@@ -7,13 +7,14 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.dao.IGoodInfoDao;
+import com.dao.IGoodServiceRelaxDao;
 import com.pojo.GoodInfo;
-
 import com.service.IGoodInfoService;
 @Service
 public class GoodInfoServiceImpl implements IGoodInfoService {
 	
 	private IGoodInfoDao goodInfoDaoImpl;
+	private IGoodServiceRelaxDao goodServiceRelaxDaoImpl;
 	@Override
 	public GoodInfo findByGoodId(Integer goodId) {
 		return goodInfoDaoImpl.findByGoodId(goodId);
@@ -39,7 +40,48 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		map.put("ps", ps);
 		return goodInfoDaoImpl.findAll(map);
 	}
+	@Override
+	public boolean addGood(GoodInfo goodInfo, String[] serviceId) {
+		Integer goodId = goodInfoDaoImpl.addGood(goodInfo);
+		if (goodId<0) {
+			return false;
+		}
+		for (int i = 0; i < serviceId.length; i++) {
+			boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
+			if (!flag) {
+				return false;
+			}
+		}
+		return true;
+	}
 
+	@Override
+	public boolean updateGood(GoodInfo goodInfo, String[] serviceId) {
+		Integer goodId = goodInfo.getGoodId();
+		boolean deleteFlag = goodServiceRelaxDaoImpl.deleteRelax(goodId);
+		if (!deleteFlag) {
+			return false;
+		}
+		for (int i = 0; i < serviceId.length; i++) {
+			boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
+			if (!flag) {
+				return false;
+			}
+		}
+		boolean updateFlag = goodInfoDaoImpl.updateGood(goodInfo);
+		if (updateFlag) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean deleteGood(Integer goodId) {
+		boolean deleteFlag = goodServiceRelaxDaoImpl.deleteRelax(goodId);
+		if (!deleteFlag) {
+			return false;
+		}
+		return goodInfoDaoImpl.deleteGood(goodId);
+	}
 	public IGoodInfoDao getGoodInfoDaoImpl() {
 		return goodInfoDaoImpl;
 	}
@@ -47,5 +89,19 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	public void setGoodInfoDaoImpl(IGoodInfoDao goodInfoDaoImpl) {
 		this.goodInfoDaoImpl = goodInfoDaoImpl;
 	}
+
+	public IGoodServiceRelaxDao getGoodServiceRelaxDaoImpl() {
+		return goodServiceRelaxDaoImpl;
+	}
+
+	public void setGoodServiceRelaxDaoImpl(IGoodServiceRelaxDao goodServiceRelaxDaoImpl) {
+		this.goodServiceRelaxDaoImpl = goodServiceRelaxDaoImpl;
+	}
+
+	
+
+	
+	
+	
 
 }

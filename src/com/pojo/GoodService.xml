@@ -7,4 +7,10 @@
 			#{goodServiceId}
 		</foreach>
 	</select>
+	<select id="getAllService" resultType="java.lang.String">
+		select ser_type from good_service 
+	</select>
+	<select id="getAllServiceAndChecked" resultType="com.vo.ServiceType" >
+		select serviceid as serviceId,ser_type as serviceName from good_service
+	</select>
 </mapper>

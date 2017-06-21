@@ -6,4 +6,5 @@ import com.pojo.GoodStyle;
 
 public interface IGoodStyleDao {
 	List<GoodStyle> getAllType();
+	
 }
