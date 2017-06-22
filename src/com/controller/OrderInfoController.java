@@ -1,5 +1,3 @@
-
-
 package com.controller;
 
 import java.io.IOException;
@@ -27,95 +25,121 @@ import com.service.IOrderInfoService;
 @Controller
 @RequestMapping("order")
 public class OrderInfoController {
-	@Resource(name="orderInfoServiceImpl")
+	@Resource(name = "orderInfoServiceImpl")
 	IOrderInfoService service;
-	@RequestMapping(value="addorder")
+
+	@RequestMapping(value = "addorder")
 	@ResponseBody
-	public String addOrder(@RequestBody OrderInfo order){	
+	public String addOrder(@RequestBody OrderInfo order) {
 		System.out.println(order.getOrderItem().get(0).getGoodInfo());
-		boolean save =service.save(order);
-		if(save){
-			return "[{frontid:"+order.getFrontid()+",orderid:"+order.getOrderid()+"}]";
-		}else{
-			return "[{frontid:"+order.getFrontid()+",}]";
-		}
-		
-		
-	}
-	
-	
-	@RequestMapping(value="showorderinfo")
-	public void showOrderInfo(Integer orderid,HttpServletResponse response){
-		OrderInfo order = service.findById(orderid);
-		JsonConfig jsonConfig = new JsonConfig();  
-		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
-		JSONArray array = new JSONArray();
-		array.add(order,jsonConfig);
-
-		PrintWriter out;
+		boolean save = false;
 		try {
-			out = response.getWriter();
-			out.write(array.toString());
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return ;
-	}
-	
-	
-	@RequestMapping(value="showall")//fron
-	public void showOrderInfo(OrderInfo order,HttpServletResponse response){
-		  List<OrderInfo> list = service.findByStatus(order);
-		JsonConfig jsonConfig = new JsonConfig();  
-		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
-		JSONArray array = new JSONArray();
-		array.addAll(list, jsonConfig);
-
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			out.write(array.toString());
-			out.flush();
-		} catch (IOException e) {
+			save = service.save(order);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ;
+		if (save) {
+			return "[{frontid:" + order.getFrontid() + ",orderid:"
+					+ order.getOrderid() + "}]";
+		} else {
+			return "[{frontid:" + order.getFrontid() + "orderid:0}]";
+		}
+
 	}
-	
-	
-	@RequestMapping(value="payOrder")
+
+	@RequestMapping(value = "showorderinfo")
+	public void showOrderInfo(Integer orderid, HttpServletResponse response) {
+		OrderInfo order =null; 
+
+		PrintWriter out;
+		try {
+			service.findById(orderid);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Date.class,
+					new JsonDateValueProcessor());
+			JSONArray array = new JSONArray();
+			array.add(order, jsonConfig);
+			out = response.getWriter();
+			out.write(array.toString());
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
+
+	@RequestMapping(value = "showall")
+	// fron
+	public void showOrderInfo(OrderInfo order, HttpServletResponse response) {
+		List<OrderInfo> list =null;
+		PrintWriter out;
+		try {
+			list = service.findByStatus(order);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Date.class,
+					new JsonDateValueProcessor());
+			JSONArray array = new JSONArray();
+			array.addAll(list, jsonConfig);
+			out = response.getWriter();
+			out.write(array.toString());
+			out.flush();
+		} catch (IOException e) {
+		}
+		return;
+	}
+
+	@RequestMapping(value = "payOrder")
 	@ResponseBody
-	public String payOrder(OrderInfo or){
+	public String payOrder(OrderInfo or) {
 		OrderInfo order = new OrderInfo();
 		order.setOrderid(or.getOrderid());
 		order.setOrderstatus(2);
-		boolean flag = service.update(order);
-		if(flag){
-			return "{result:ok}";
+		
+		boolean flag =false;
+		 try {
+			flag=service.update(order);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
 		}
-		return "{result:error}";
+		
+		if (flag) {
+			return "[{frontid:" + order.getFrontid() + ",orderid:"
+					+ order.getOrderid() + ",result:ok}]";
+		}
+		return "[{frontid:" + order.getFrontid() + ",orderid:"
+				+ order.getOrderid() + "result:error}]";
 	}
-	
-	@RequestMapping(value="update")
+
+	@RequestMapping(value = "update")
 	@ResponseBody
-	public String update(OrderInfo or){
-		System.out.println("getOrderstatus "+or.getOrderstatus());
+	public String update(OrderInfo or) {
 		OrderInfo order = new OrderInfo();
 		order.setOrderid(or.getOrderid());
 		order.setOrderstatus(or.getOrderstatus());
-		boolean flag =service.update(order);
-		if(flag){
+		boolean flag =false;
+		 try {
+			flag=service.update(order);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+		}
+		if (flag) {
 			return "{result:'ok'}";
 		}
 		return "{result:'error'}";
 	}
-	
-	@RequestMapping(value="showpages")
-	public String showPages(Integer cp,Integer rows,Model model){
-		Page<OrderInfo> pages = service.findPages(cp, rows);
-		model.addAttribute("pages", pages);
+
+	@RequestMapping(value = "showpages")
+	public String showPages(Integer cp, Integer rows, Model model) {
+		Page<OrderInfo> pages = null;
+		try {
+			pages = service.findPages(cp, rows);
+			model.addAttribute("pages", pages);
+		} catch (Exception e) {
+		}
+
 		return "file/chen/orderlist";
 	}
 }

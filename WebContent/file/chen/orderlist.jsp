@@ -67,9 +67,9 @@ div {
 </style>
 
 
-<link href="houtai_xiangmu/css/css.css" rel="stylesheet" type="text/css" />
+<!-- <link href="houtai_xiangmu/css/css.css" rel="stylesheet" type="text/css" />
 <link href="houtai_xiangmu/css/style.css" rel="stylesheet"
-	type="text/css" />
+	type="text/css" /> -->
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript">
 function checkOrderf(oid){
@@ -187,8 +187,7 @@ function sendOrders(oid){
 							<table width="95%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
-									<td height="6"><img src="houtai_xiangmu/images/spacer.gif"
-										width="1" height="1" /></td>
+									<td height="6"></td>
 								</tr>
 								<tr>
 									<td height="33"><jsp:include page="split.jsp">
