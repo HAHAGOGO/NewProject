@@ -43,7 +43,7 @@
 	<form action="rpc/update" method="post">
 		id<input type="text" name="pid"><br> 姓名<input type="text"
 			name="pname"><br> 电话<input type="text" name="phone"><br>
-		地区<input type="text" name="area.areaID"><br> 详细地址<input
+		地区<input type="text" name="areaid"><br> 详细地址<input
 			type="text" name="addressinfo"><br> <input type="submit">
 
 	</form>
@@ -52,15 +52,17 @@
 
 		姓名：<input type="text" name="pname"><br> 电话：<input
 			type="text" name="phone"><br> 地区编号：<input type="text"
-			name="area.areaID"><br> 地区详情：<input type="text"
+			name="areaid"><br> 地区详情：<input type="text"
 			name="addressinfo"><br> <input type="submit" value="提交">
 	</form>
 	<form action="fuc/sendMessage" method="post">
+	<input type="hidden" value="o6_bmjrPTlm6_2sgVt7hMZOPfL1M" name="openid">
 		電話<input type="text" name=phone><br> <input type="submit"
 			value="提交">
 
 	</form>
 	<form action="fuc/checkCode" method="post">
+	<input type="hidden" value="o6_bmjrPTlm6_2sgVt7hMZOPfL1M" name="openid">
 		验证码<input type="text" name="code"><br> <input
 			type="submit">
 

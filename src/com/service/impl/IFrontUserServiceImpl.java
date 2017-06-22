@@ -47,6 +47,24 @@ public class IFrontUserServiceImpl implements IFrontUserService {
 		// TODO Auto-generated method stub
 		return frontDAO.addFrontUser(user);
 	}
+
+	@Override
+	public boolean addCheckCode(Integer frontid, String code) {
+		// TODO Auto-generated method stub
+		return frontDAO.addCheckCode(frontid, code);
+	}
+
+	@Override
+	public boolean removeCheckCode(Integer frontid) {
+		// TODO Auto-generated method stub
+		return frontDAO.removeCheckCode(frontid);
+	}
+
+	@Override
+	public boolean matchCheckCode(Integer frontid, String code) {
+		// TODO Auto-generated method stub
+		return frontDAO.matchCheckCode(frontid, code);
+	}
 	
 
 }

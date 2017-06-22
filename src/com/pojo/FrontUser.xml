@@ -22,13 +22,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		mobilephone=#{phone}
 
 	</select>
-	<select id="checkOpenId" parameterType="java.lang.String" resultType="java.lang.Integer">
-	select frontid from front_user where openid=#{openid}
-	
+	<select id="checkOpenId" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select frontid from front_user where openid=#{openid}
+
 	</select>
 	<insert id="addFrontUser" parameterType="com.pojo.FrontUser">
-	insert into front_user (nickname,picpath,openid,user_status) values (#{nickName},#{picPath},#{openid},#{userStatus})
-	
-	</insert>
+		insert into front_user (nickname,picpath,openid,user_status) values
+		(#{nickName},#{picPath},#{openid},#{userStatus})
 
+	</insert>
+	<update id="addCheckCode" parameterType="java.util.Map">
+		update front_user set checkcode=#{checkcode} where frontid=#{frontid}
+	</update>
+	<update id="removeCheckCode" parameterType="java.lang.Integer">
+		update front_user set checkcode='' where frontid=#{frontid}
+	</update>
+	<select id="matchCheckCode" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(frontid) from front_user where frontid=#{frontid} and
+		checkcode=#{checkcode}
+	</select>
 </mapper>

@@ -21,14 +21,18 @@ import com.pojo.City;
 import com.pojo.FrontUser;
 import com.pojo.Province;
 import com.pojo.ReceiptPerson;
+import com.pojo.WeChatInfo;
 import com.service.IAreaService;
 import com.service.ICityService;
+import com.service.IFrontUserService;
 import com.service.IProvinceService;
 import com.service.IReceiptPersonService;
 
 @Controller
 @RequestMapping("rpc")
 public class ReceiptPersonController {
+	@Resource(name = "frontService")
+	private IFrontUserService frontService;
 	@Resource(name = "irps")
 	private IReceiptPersonService irps;
 	private IAreaService areaServiceImpl;
@@ -60,10 +64,10 @@ public class ReceiptPersonController {
 	}
 
 	@RequestMapping(value = "ap", method = RequestMethod.POST)
-	private void addPerson(ReceiptPerson rp, HttpSession session,
-			HttpServletResponse response) {
-		System.out.println(rp);
-		rp.setUserid(((FrontUser) session.getAttribute("user")).getFrontid());
+	private void addPerson(ReceiptPerson rp,WeChatInfo we,HttpSession session,
+			HttpServletResponse response){
+	
+		rp.setUserid(2);
 		boolean b = irps.addReceiptPerson(rp);
 
 		try {

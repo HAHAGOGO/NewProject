@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 查询一个用户中的购物车信息，包括商品 -->
 
-<resultMap type="Cart" id="CartAndGood">
+<resultMap type="com.pojo.Cart" id="CartAndGood">
 	<id  property="cartId" column="cartId"/>
 
 	<association property="user" javaType="com.pojo.FrontUser">
