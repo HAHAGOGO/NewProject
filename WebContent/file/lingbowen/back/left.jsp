@@ -107,7 +107,7 @@ body {
 									<td width="8%"><img name="img8" id="img8"
 										src="image/back/ico04.gif" width="8" height="11" /></td>
 									<td width="92%"><a href="javascript:void(0)" 
-										class="left-font03" onClick="list('8');">新闻管理</a></td>
+										class="left-font03" onClick="list('8');">管理</a></td>
 								</tr>
 							</table>
 						</td>
@@ -119,8 +119,8 @@ body {
 					<tr>
 						<td width="9%" height="21"><img id="xiaotu21"
 							src="image/back/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="mc/gn?flag=view" target="mainFrame"
-							class="left-font03" onClick="tupian('21');">查看新闻</a></td>
+						<td width="91%"><a href="order/showpages" target="mainFrame"
+							class="left-font03" onClick="tupian('21');">查看订单</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="21"><img id="xiaotu21"

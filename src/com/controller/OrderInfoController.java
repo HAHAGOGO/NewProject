@@ -114,8 +114,13 @@ public class OrderInfoController {
 	
 	@RequestMapping(value="showpages")
 	public String showPages(Integer cp,Integer rows,Model model){
-		Page<OrderInfo> pages = service.findPages(cp, rows);
-		model.addAttribute("pages", pages);
+		Page<OrderInfo> pages = null;
+		try {
+			pages = service.findPages(cp, rows);
+			model.addAttribute("pages", pages);
+		} catch (Exception e) {
+		}
+
 		return "file/chen/orderlist";
 	}
 }

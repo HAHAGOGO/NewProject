@@ -19,6 +19,11 @@
 <link
 	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
+<style type="text/css">
+div {
+	width: 100px;
+}
+</style>
 <script type="text/javascript">
 	function sub() {
 
@@ -33,9 +38,7 @@
 			alert("密码不能为空");
 			return false;
 		}
-		
-		
-		
+
 		return true;
 		/* $.ajax({
 			url : "uc/gu",
@@ -71,9 +74,9 @@
 			<h2 class="form-signin-heading">请登录</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				id="i1" name="loginname" type="text" id="inputEmail"
-				class="form-control" placeholder="用户名" value="admin" autofocus> <label
-				for="inputPassword" class="sr-only">Password</label> <input id="i2"
-				name="loginpwd" type="password" id="inputPassword"
+				class="form-control" placeholder="用户名" value="admin" autofocus>
+			<label for="inputPassword" class="sr-only">Password</label> <input
+				id="i2" name="loginpwd" type="password" id="inputPassword"
 				class="form-control" placeholder="密码" value="admin">
 			<button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
 		</form>
