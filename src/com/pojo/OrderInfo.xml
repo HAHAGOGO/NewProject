@@ -7,7 +7,7 @@
 		useGeneratedKeys="true" keyProperty="orderid">
 		insert into
 		order_info(frontid,addressid,orderstatus,totalprice,totalnum,expressid,ordertime,deadline)
-		values(#{frontid},#{receipt.pid},#{orderstatus},#{totalprice},#{totalnum},#{expressid},now(),DATE_ADD(now(),INTERVAL
+		values(#{frontid},#{receipt.pid},#{orderstatus},#{totalprice},#{totalnum},#{expressSelect.expressid},now(),DATE_ADD(now(),INTERVAL
 		24 DAY_HOUR))
 	</insert>
 
@@ -26,7 +26,7 @@
 		</association>
 
 		<association property="receipt" column="addressid"
-			javaType="com.pojo.ReceiptPerson" select="com.pojo.ReceiptPerson.queryByID">
+			javaType="com.pojo.ReceiptPerson" select="com.pojo.ReceiptPerson.queryByUserID">
 		</association>
 		<collection property="orderItem" column="orderid"
 			javaType="java.util.ArrayList" ofType="com.pojo.OrderDetail"
@@ -50,6 +50,29 @@
 			<if test="orderstatus !=null "> and orderstatus=#{orderstatus}</if>
 		</where>
 	</select>
+
+	<select id="count" parameterType="com.pojo.OrderInfo" resultType="java.lang.Integer">
+		select count(orderid) from order_info
+		<where>
+			<if test="frontid !=null">frontid=#{frontid}</if>
+			<if test="orderstatus !=null "> and orderstatus=#{orderstatus}</if>
+		</where>
+
+	</select>
+
+
+
+	<select id="countAll" parameterType="com.pojo.OrderInfo" resultType="java.lang.Integer">
+		select count(orderid) from order_info
+	</select>
+
+	<select id="findPages" parameterType="com.convert.Page"
+		resultMap="orderinfo">
+		select
+		orderid,frontid,addressid,orderstatus,totalprice,totalnum,expressid,ordertime,deadline,message
+		from order_info limit #{start},#{pagesize}
+	</select>
+
 	<update id="update" parameterType="com.pojo.OrderInfo">
 		update order_info
 		<set>
@@ -58,6 +81,7 @@
 		where orderid=#{orderid};
 	</update>
 	<delete id="delete" parameterType="java.lang.Integer">
-		update order_info set orderstatus=6 where orderid=#{orderid}
+		update order_info set
+		orderstatus=6 where orderid=#{orderid}
 	</delete>
 </mapper>
