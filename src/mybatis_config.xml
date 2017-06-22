@@ -5,6 +5,8 @@
 	<mappers>
 		<mapper resource="com/pojo/Cart.xml" />
 		<mapper resource="com/pojo/ReceiptPerson.xml" />
+		<mapper resource="com/pojo/FrontUser.xml" />
+		<mapper resource="com/pojo/BackUser.xml"/>
 		<mapper resource="com/pojo/Area.xml" />
 		<mapper resource="com/pojo/City.xml" />
 		<mapper resource="com/pojo/Province.xml" />
