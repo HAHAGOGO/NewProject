@@ -56,7 +56,7 @@ public class Cart {
 		public void init(){
 			for(int i=0;i<goodList.size();++i){
 				GoodInfo good = goodList.get(i);
-				double tempPrice = good.getGoodDiscountedPrice()*good.getSalsNum();
+				double tempPrice = good.getGoodDiscountedPrice()*good.getCartNumber();
 				total+=tempPrice;
 				//只有当选中时，才加到realToal中
 				if(good.getCartFlag()==1){
