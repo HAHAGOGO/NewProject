@@ -60,9 +60,11 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 				gList.add(goods);
 			}
 			//cart.setGoodList(gList);
-			Cart selectRealCartOfUser = cartDao.selectRealCartOfUser(user);
-			System.err.println(selectRealCartOfUser.getGoodList().size());
-			cartDao.removreGoodOfCartAfterOrder(selectRealCartOfUser);
+			 List<Cart> o = cartDao.selectRealCartOfUser(user);
+			 for (Cart cart2 : o) {
+				 cartDao.removreGoodOfCartAfterOrder(cart2);
+			}
+			
 		}
 		return save;
 	}

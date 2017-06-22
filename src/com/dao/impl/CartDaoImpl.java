@@ -1,5 +1,7 @@
 package com.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -17,13 +19,13 @@ public class CartDaoImpl extends SqlSessionDaoSupport implements ICartDao {
 	}
 
 	@Override
-	public Cart selectCartOfUser(FrontUser user) {
-	return super.getSqlSession().selectOne("com.pojo.Cart.selectCartOfUser",user);
+	public List<Cart> selectCartOfUser(FrontUser user) {
+	return super.getSqlSession().selectList("com.pojo.Cart.selectCartOfUser",user);
 	}
 
 	@Override
-	public Cart selectRealCartOfUser(FrontUser user) {
-		return super.getSqlSession().selectOne("com.pojo.Cart.selectRealCartOfUser",user);
+	public List<Cart> selectRealCartOfUser(FrontUser user) {
+		return super.getSqlSession().selectList("com.pojo.Cart.selectRealCartOfUser",user);
 	}
 
 	@Override
@@ -38,8 +40,8 @@ public class CartDaoImpl extends SqlSessionDaoSupport implements ICartDao {
 	}
 
 	@Override
-	public boolean cartNumberSub1(SimpleCart cart) {
-		int i = super.getSqlSession().update("com.pojo.Cart.cartNumberSub1",cart);
+	public boolean setCartNumber(SimpleCart cart) {
+		int i = super.getSqlSession().update("com.pojo.Cart.setCartNumber",cart);
 		 return i>0?true:false;
 	}
 

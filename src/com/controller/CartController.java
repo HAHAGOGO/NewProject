@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.pojo.Cart;
 import com.pojo.FrontUser;
 import com.pojo.SimpleCart;
@@ -52,15 +54,15 @@ public class CartController {
 			e.printStackTrace();
 		}
 	}
-	@RequestMapping(value="goodOfCartSub1",method=RequestMethod.GET)
+	@RequestMapping(value="setCartNumber",method=RequestMethod.GET)
 	public void goodOfCartSub1(Integer fontid,Integer goodId,
 			@RequestParam(defaultValue="1")Integer number,HttpServletResponse response){
-		//购物车对应商品-1
+		//设置商品数量
 		SimpleCart cart = new SimpleCart();
 		cart.setUserId(fontid);
 		cart.setGoodId(goodId);
 		cart.setCartNumber(number);
-		boolean flag = cartServiceImpl.cartNumberSub1(cart);
+		boolean flag = cartServiceImpl.setCartNumber(cart);
 		try {
 			PrintWriter writer = response.getWriter();
 			writer.print(flag);
@@ -85,10 +87,10 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="confirmGoodOfCart",method=RequestMethod.GET)
-	public void confirmGoodOfCart(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void confirmGoodOfCart(Integer frontid,Integer goodId,HttpServletResponse response){
 		//勾选购物车商品
 		SimpleCart cart = new SimpleCart();
-		cart.setUserId(fontid);
+		cart.setUserId(frontid);
 		cart.setGoodId(goodId);
 		boolean flag = cartServiceImpl.confirmGoodOfCart(cart);
 		try {
@@ -115,31 +117,37 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="selectCartOfUser",method=RequestMethod.GET)
-	public void selectCartOfUser(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void selectCartOfUser(Integer frontid,Integer goodId,HttpServletResponse response){
 		//查询购物车里的商品信息
+		response.setContentType("text/html;charset=utf-8");
 		FrontUser user = new FrontUser();
-		user.setFrontid(fontid);
-		Cart cart = cartServiceImpl.selectCartOfUser(user);
-		cart.init();
+		user.setFrontid(frontid);
+		List<Cart>list  = cartServiceImpl.selectCartOfUser(user);
+		for (Cart cart : list) {
+			cart.init();
+		}
 		try {
 			PrintWriter writer = response.getWriter();
-			String jsonCart = JsonUtil.objectToJsonStr(cart);
+			String jsonCart= JsonUtil.arrayToJsonStr(list);
 			writer.write(jsonCart);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	@RequestMapping(value="selectRealCartOfUser",method=RequestMethod.GET)
-	public void selectRealCartOfUser(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void selectRealCartOfUser(Integer frontid,HttpServletResponse response){
 		//查询已经勾选的商品在购物车显示
+		response.setContentType("text/html;charset=utf-8");
 		FrontUser user = new FrontUser();
-		user.setFrontid(fontid);
-		Cart cart = cartServiceImpl.selectRealCartOfUser(user);
-		cart.init();
+		user.setFrontid(frontid);
+		List<Cart>list = cartServiceImpl.selectRealCartOfUser(user);
+		for (Cart cart : list) {
+			cart.init();
+		}
 		try {
 			PrintWriter writer = response.getWriter();
-			String jsonStr = JsonUtil.objectToJsonStr(cart);
-			writer.write(jsonStr);
+			String jsonCart= JsonUtil.arrayToJsonStr(list);
+			writer.write(jsonCart);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
