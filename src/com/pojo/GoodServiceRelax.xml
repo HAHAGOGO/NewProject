@@ -4,4 +4,10 @@
 	<select id="getServiceId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select serviceid from good_service_relax where goodid=#{goodId}
 	</select>
+	<insert id="insertRelax" parameterType="java.util.Map">
+		insert into good_service_relax values(#{goodId},#{serviceId});
+	</insert>
+	<delete id="deleteRelax" parameterType="java.lang.Integer">
+		delete from good_service_relax where goodid=#{goodId}
+	</delete>
 </mapper>

@@ -49,4 +49,31 @@
 		</where>			  		
   		limit #{start},#{ps}
   	</select>
+  	
+  	<insert id="addGood" parameterType="com.pojo.GoodInfo" useGeneratedKeys="true" keyProperty="goodId">
+  		insert into good_info(styleid,good_name,good_original_price,good_pic_path,
+  		good_discounted_price,good_desc,specification,free_delivery,good_status) 
+  		values(#{styleId},#{goodName},#{goodOriginalPrice},#{goodPicPath},
+  		#{goodDiscountedPrice},#{goodDesc},#{specification},#{freeDelivery},#{goodStatus})
+  	</insert>
+  	
+  	<update id="updateGood" parameterType="com.pojo.GoodInfo">
+  		update good_info
+  			<set>
+  				<if test="styleId!=null">styleid=#{styleId},</if>
+  				<if test="goodName!=null">good_name=#{goodName},</if>
+  				<if test="goodOriginalPrice!=null">good_original_price=#{goodOriginalPrice},</if>
+  				<if test="goodPicPath!=null">good_pic_path=#{goodPicPath},</if>
+  				<if test="goodDiscountedPrice!=null">good_discounted_price=#{goodDiscountedPrice},</if>
+  				<if test="goodDesc!=null">good_desc=#{goodDesc},</if>
+  				<if test="specification!=null">specification=#{specification},</if>
+  				<if test="freeDelivery!=null">free_delivery=#{freeDelivery},</if>
+  				<if test="goodStatus!=null">good_status=#{goodStatus},</if>
+  			</set>
+  			where goodid=#{goodId}
+  	</update>
+  	
+  	<delete id="deleteGood" parameterType="java.lang.Integer">
+  		delete from good_info where goodid=#{goodId}
+  	</delete>
 </mapper>

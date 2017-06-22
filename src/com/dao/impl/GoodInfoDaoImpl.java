@@ -28,4 +28,31 @@ public class GoodInfoDaoImpl extends SqlSessionDaoSupport implements IGoodInfoDa
 		return super.getSqlSession().selectList("com.pojo.GoodInfo.findAll",map);
 	}
 
+	@Override
+	public Integer addGood(GoodInfo goodInfo) {
+		int flag = super.getSqlSession().insert("com.pojo.GoodInfo.addGood", goodInfo);
+		if (flag<0) {
+			return -1;
+		}
+		return goodInfo.getGoodId();
+	}
+
+	@Override
+	public boolean updateGood(GoodInfo goodInfo) {
+		int flag = super.getSqlSession().update("com.pojo.GoodInfo.updateGood", goodInfo);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteGood(Integer goodId) {
+		int flag = super.getSqlSession().delete("com.pojo.GoodInfo.deleteGood", goodId);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
 }
