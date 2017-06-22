@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.dao.ICartDao;
@@ -16,12 +18,12 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public Cart selectCartOfUser(FrontUser user) {
+	public List<Cart> selectCartOfUser(FrontUser user) {
 		return cartDaoImpl.selectCartOfUser(user);
 	}
 
 	@Override
-	public Cart selectRealCartOfUser(FrontUser user) {
+	public List<Cart> selectRealCartOfUser(FrontUser user) {
 		return cartDaoImpl.selectRealCartOfUser(user);
 	}
 
@@ -36,8 +38,8 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public boolean cartNumberSub1(SimpleCart cart) {
-	return	cartDaoImpl.cartNumberSub1(cart);
+	public boolean setCartNumber(SimpleCart cart) {
+	return	cartDaoImpl.setCartNumber(cart);
 	}
 
 	@Override
