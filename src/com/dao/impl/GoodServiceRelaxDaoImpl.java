@@ -37,4 +37,13 @@ public class GoodServiceRelaxDaoImpl extends SqlSessionDaoSupport implements IGo
 		return false;
 	}
 
+	@Override
+	public boolean deleteAll(Integer[] delId) {
+		int flag = super.getSqlSession().delete("com.pojo.GoodServiceRelax.deleteAll", delId);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
 }

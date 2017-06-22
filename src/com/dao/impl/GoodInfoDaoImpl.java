@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,23 @@ public class GoodInfoDaoImpl extends SqlSessionDaoSupport implements IGoodInfoDa
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean deleteAll(Integer[] delId) {
+		int flag = super.getSqlSession().delete("com.pojo.GoodInfo.deleteAll", delId);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Integer getCount(Integer styleId) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("styleId", styleId);
+		return super.getSqlSession().selectOne("com.pojo.GoodInfo.getCount", map);
+		
 	}
 
 }
