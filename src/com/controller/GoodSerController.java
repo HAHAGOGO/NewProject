@@ -25,6 +25,9 @@ import com.service.IGoodStyleService;
 import com.vo.ServiceType;
 
 
+
+
+
 @Controller
 @RequestMapping("gsc")
 public class GoodSerController {
@@ -33,10 +36,29 @@ public class GoodSerController {
 	private IGoodService goodServiceImpl;
 	private IGoodStyleService goodStyleServiceImpl;
 	
+	
 	@RequestMapping("cag")
-	public String checkAllGoods(Model model){
-		List<GoodInfo> goods = goodInfoServiceImpl.findAll(null, 1, 10);
+	public String checkAllGoods(Integer styleId,Integer cp,Integer ps,Model model,HttpServletRequest req){
+		if (cp==null||cp<1) {
+			cp=1;
+		}
+		if (ps==null||ps<1) {
+			ps=5;
+		}
+		if (styleId==null||styleId==0) {
+			styleId=null;
+		}
+		List<GoodInfo> goods = goodInfoServiceImpl.findAll(styleId, cp, ps);
+		int count = goodInfoServiceImpl.getCount(styleId);
+		List<GoodStyle> goodStyles = goodStyleServiceImpl.getAllType();
+		int sumpage=(count-1)/ps+1;
+		model.addAttribute("styleId", styleId);
+		model.addAttribute("cp", cp);
+		model.addAttribute("ps", ps);
 		model.addAttribute("goods", goods);
+		model.addAttribute("sumpage", sumpage);
+		model.addAttribute("count", count);
+		model.addAttribute("goodStyles", goodStyles);
 		return "file/zwj/ser/files/list_goods";
 	}
 	/**
@@ -74,8 +96,7 @@ public class GoodSerController {
 	@RequestMapping(value="updategood",method=RequestMethod.POST)
 	public String updateGood(GoodInfo goodInfo,HttpServletRequest req){
 		String[] parameter = req.getParameterValues("goodService");
-		GoodInfo g = saveImg(goodInfo, req);
-		boolean flag = goodInfoServiceImpl.updateGood(g, parameter);
+		boolean flag = goodInfoServiceImpl.updateGood(goodInfo, parameter,req);
 		if (flag) {
 			System.out.println("修改数据成功");
 		}
@@ -90,53 +111,42 @@ public class GoodSerController {
 	@RequestMapping(value="addgood",method=RequestMethod.POST)
 	public String addGood(GoodInfo goodInfo,HttpServletRequest req){
 		String[] parameter = req.getParameterValues("goodService");
-		GoodInfo g = saveImg(goodInfo, req);
-		boolean flag = goodInfoServiceImpl.addGood(g, parameter);
-		if (flag) {
+		Integer goodId = goodInfoServiceImpl.addGood(goodInfo, parameter,req);
+		if (goodId>0) {
 			System.out.println("添加数据成功");
 		}
 		return "redirect:cag";
 	}
 	
 	/**
-	 * 删除商品
+	 * 删除单个商品
 	 * @param goodId
 	 * @return
 	 */
 	@RequestMapping(value="deletegood")
-	public String deleteGood(Integer goodId){
-		
-		
-		
-		boolean flag = goodInfoServiceImpl.deleteGood(goodId);
+	public String deleteGood(Integer goodId,HttpServletRequest req){
+		boolean flag = goodInfoServiceImpl.deleteGood(goodId,req);
 		if (flag) {
 			System.out.println("删除商品成功");
 		}
 		
 		return "redirect:cag";
 	}
-	
 	/**
-	 * 保存商品图片
-	 * @param n
-	 * @param req
+	 * 批量删除商品
+	 * @param delId
 	 * @return
 	 */
-	private GoodInfo saveImg(GoodInfo g,HttpServletRequest req){
-		MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) req;
-		MultipartFile pic = mhr.getFile("pic");
-		String realpath = mhr.getServletContext().getRealPath("image/goods");
-		File file = new File(realpath+"/"+pic.getOriginalFilename());
-		try {
-			FileCopyUtils.copy(pic.getInputStream(), new FileOutputStream(file));
-			g.setGoodPicPath("image/goods/"+pic.getOriginalFilename());
-		} catch (FileNotFoundException e) {
-			System.out.println("图片保存出错了");
-		} catch (IOException e) {
-			System.out.println("图片保存出错了");
+	@RequestMapping(value="deleteall")
+	public String deleteAllGood(Integer[] delId,HttpServletRequest req){
+		
+		boolean flag = goodInfoServiceImpl.deleteAll(delId,req);
+		if (flag) {
+			System.out.println("批量删除成功");
 		}
-		return g;
+		return "redirect:cag";
 	}
+	
 	
 	/**
 	 * 解决乱码问题

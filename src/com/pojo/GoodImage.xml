@@ -8,4 +8,10 @@
 			pic_status as picStatus 
 			from good_image where goodId=#{goodId}
 	</select>
+	<insert id="addImage" parameterType="com.pojo.GoodImage">
+		insert into good_image(goodid,pic_path,pic_status) values(#{goodId},#{picPath},#{picStatus})
+	</insert>
+	<delete id="deleteImage" parameterType="java.lang.Integer">
+		delete from good_image where goodid=#{goodId}
+	</delete>
 </mapper>

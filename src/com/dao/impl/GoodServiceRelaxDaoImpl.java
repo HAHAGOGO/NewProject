@@ -8,6 +8,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.dao.IGoodServiceRelaxDao;
+
 @Repository
 public class GoodServiceRelaxDaoImpl extends SqlSessionDaoSupport implements IGoodServiceRelaxDao {
 
@@ -31,6 +32,15 @@ public class GoodServiceRelaxDaoImpl extends SqlSessionDaoSupport implements IGo
 	@Override
 	public boolean deleteRelax(Integer goodId) {
 		int flag = super.getSqlSession().delete("com.pojo.GoodServiceRelax.deleteRelax", goodId);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteAll(Integer[] delId) {
+		int flag = super.getSqlSession().delete("com.pojo.GoodServiceRelax.deleteAll", delId);
 		if (flag>0) {
 			return true;
 		}
