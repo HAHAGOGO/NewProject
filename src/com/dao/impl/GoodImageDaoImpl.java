@@ -15,4 +15,22 @@ public class GoodImageDaoImpl extends SqlSessionDaoSupport implements IGoodImage
 		return super.getSqlSession().selectList("com.pojo.GoodImage.getGoodImageByGoodId",goodId);
 	}
 
+	@Override
+	public boolean addImage(GoodImage goodImage) {
+		int flag = super.getSqlSession().insert("com.pojo.GoodImage.addImage", goodImage);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteImage(Integer goodId) {
+		int flag = super.getSqlSession().delete("com.pojo.GoodImage.deleteImage", goodId);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
 }

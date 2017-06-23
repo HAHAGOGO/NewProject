@@ -15,12 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.convert.JsonDateValueProcessor;
 import com.convert.Page;
 import com.pojo.OrderInfo;
 import com.service.IOrderInfoService;
+import com.utils.StringUtils;
 
 @Controller
 @RequestMapping("order")
@@ -28,12 +30,16 @@ public class OrderInfoController {
 	@Resource(name = "orderInfoServiceImpl")
 	IOrderInfoService service;
 
-	@RequestMapping(value = "addorder")
+	@RequestMapping(value = "addorder",method=RequestMethod.POST)
 	@ResponseBody
 	public String addOrder(@RequestBody OrderInfo order) {
 		System.out.println(order.getOrderItem().get(0).getGoodInfo());
 		boolean save = false;
 		try {
+			//转换留言中的特殊字符
+			if(order.getMessage()!=null&&(!order.getMessage().equals(""))){
+				order.setMessage(StringUtils.convertString(order.getMessage()));
+			}
 			save = service.save(order);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
