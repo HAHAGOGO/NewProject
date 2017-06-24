@@ -1,4 +1,3 @@
-
 package com.controller;
 
 import java.io.IOException;
@@ -64,9 +63,9 @@ public class ReceiptPersonController {
 	}
 
 	@RequestMapping(value = "ap", method = RequestMethod.POST)
-	private void addPerson(ReceiptPerson rp,WeChatInfo we,HttpSession session,
-			HttpServletResponse response){
-	
+	private void addPerson(ReceiptPerson rp, WeChatInfo we,
+			HttpSession session, HttpServletResponse response) {
+
 		rp.setUserid(2);
 		boolean b = irps.addReceiptPerson(rp);
 
@@ -97,8 +96,8 @@ public class ReceiptPersonController {
 	}
 
 	@RequestMapping(value = "qbuid", method = RequestMethod.GET)
-	private void queryByUserId(Integer userid, HttpServletResponse response) {
-
+	private void queryByUserId(String openid, HttpServletResponse response) {
+		Integer userid = frontService.checkOpenID(openid);
 		List<ReceiptPerson> list = irps.queryByUserId(userid);
 		JSONArray array = JSONArray.fromObject(list);
 		try {
@@ -198,4 +197,3 @@ public class ReceiptPersonController {
 		writer.write(jsonArray.toString());
 	}
 }
-

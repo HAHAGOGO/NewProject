@@ -25,10 +25,11 @@ div {
 }
 </style>
 <script type="text/javascript">
-	function reg() {
-		window.location.href = "file/lingbowen/Reg.jsp";
+function reg(){
+	window.location.href="file/lingbowen/Reg.jsp"
+	
+}
 
-	}
 
 	function sub() {
 
@@ -74,22 +75,26 @@ div {
 
 	<div class="container">
 
-		<form class="form-signin" method="post" action="buc/backLogin"
+		<form class="form-signin" method="post" action="buc/reg"
 			onsubmit="return sub()">
-			<h2 class="form-signin-heading">请登录</h2>
+			<h2 class="form-signin-heading">请注册</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				id="i1" name="loginname" type="text" id="inputEmail"
-				class="form-control" placeholder="用户名"  autofocus>
+				class="form-control" placeholder="用户名"  autofocus><span>${requestScope.have }</span>
 			<label for="inputPassword" class="sr-only">Password</label> <input
 				id="i2" name="loginpwd" type="password" id="inputPassword"
-				class="form-control" placeholder="密码">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+				class="form-control" placeholder="密码" >
+				<label for="inputPassword" class="sr-only">Password</label> <input
+				id="i2" name="realname" type="text" id="inputPassword"
+				class="form-control" placeholder="真实姓名" >
+			<button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
+			
 		</form>
-		<button class="btn btn-lg btn-primary btn-block" onclick="reg()">注册</button>
 
 	</div>
 	<!-- /container -->
 
 
 </body>
+</html>
 </html>

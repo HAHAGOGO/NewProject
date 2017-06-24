@@ -25,4 +25,17 @@ public class BackUserServiceImpl implements IBackUserService {
 		return backUserDAOImpl.queryBackUser(loginname, loginpwd);
 	}
 
+	@Override
+	public boolean addBackUser(String loginname, String loginpwd,
+			String realname) {
+		// TODO Auto-generated method stub
+		return backUserDAOImpl.addBackUser(loginname, loginpwd, realname);
+	}
+
+	@Override
+	public boolean queryBackUserByLoginname(String loginname) {
+		// TODO Auto-generated method stub
+		return backUserDAOImpl.queryBackUserByLoginname(loginname);
+	}
+
 }

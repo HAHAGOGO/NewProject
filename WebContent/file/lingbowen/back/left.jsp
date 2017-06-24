@@ -68,7 +68,7 @@ body {
 <script type="text/javascript">
 	function f1() {
 
-		parent.location.href = "/House/uc/logout";
+		parent.location.href = "/buc/logout";
 	}
 </script>
 
@@ -90,7 +90,7 @@ body {
 								</tr>
 								<tr>
 									<td height="22" class="left-font01">[&nbsp;<a
-										href="javascript:f1()" target="_top" class="left-font01">退出</a>&nbsp;]
+										href="buc/logout" target="_top" class="left-font01">退出</a>&nbsp;]
 									</td>
 								</tr>
 							</table>
@@ -125,8 +125,8 @@ body {
 					<tr>
 						<td width="9%" height="21"><img id="xiaotu21"
 							src="image/back/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="mc/gap" target="mainFrame"
-							class="left-font03" onClick="tupian('21');">查看图片</a></td>
+						<td width="91%"><a href="gsc/cag" target="mainFrame"
+							class="left-font03" onClick="tupian('21');">查看商品</a></td>
 					</tr>
 				</table> <!--  任务系统结束    --> <!--  消息系统开始    -->
 				

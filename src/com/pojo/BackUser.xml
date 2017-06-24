@@ -6,5 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="queryBackUser" parameterType="java.util.Map" resultType="com.pojo.BackUser">
 select adminid as adminId,admin_name as adminName,admin_pwd as adminPwd,admin_realname as adminRealName from back_user where admin_name=#{adminName} and admin_pwd=#{adminPwd}
 </select>
-
+<insert id="addBackUser" parameterType="java.util.Map">
+insert into back_user (admin_name,admin_pwd,admin_realname) values (#{loginname},#{loginpwd},#{realname})
+</insert>
+<select id="queryBackUserByLoginname" parameterType="java.lang.String" resultType="java.lang.Integer">
+select count(adminid) from back_user where admin_name=#{loginname}
+</select>
 </mapper>

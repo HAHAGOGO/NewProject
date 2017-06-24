@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import com.pojo.Cart;
 import com.pojo.FrontUser;
 import com.pojo.SimpleCart;
 import com.service.ICartService;
+import com.service.IFrontUserService;
 import com.utils.JsonUtil;
 
 
@@ -23,11 +25,14 @@ import com.utils.JsonUtil;
 @RequestMapping("cartCon")
 public class CartController {
 	private ICartService cartServiceImpl;
+	@Resource(name = "frontService")
+	private IFrontUserService frontService;
 	@RequestMapping(value="insertCart",method=RequestMethod.POST)
-	public void insertCart(Integer fontid,Integer goodId,
+	public void insertCart(String openid,Integer goodId,
 			@RequestParam(defaultValue="1")Integer cartNumber,HttpServletResponse response){
 		//传过来的cart包含userId，goodId的信息,cartNumber默认为1
 		//需要先判断，购物车内是否已有了此商品
+		Integer fontid = frontService.checkOpenID(openid);
 		SimpleCart cart = new SimpleCart();
 		cart.setUserId(fontid);
 		cart.setGoodId(goodId);
@@ -54,9 +59,10 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="setCartNumber",method=RequestMethod.GET)
-	public void goodOfCartSub1(Integer fontid,Integer goodId,
+	public void goodOfCartSub1(String openid,Integer goodId,
 			@RequestParam(defaultValue="1")Integer number,HttpServletResponse response){
 		//设置商品数量
+		Integer fontid = frontService.checkOpenID(openid);
 		SimpleCart cart = new SimpleCart();
 		cart.setUserId(fontid);
 		cart.setGoodId(goodId);
@@ -71,8 +77,9 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="removeGoodOfCart",method=RequestMethod.GET)
-	public void deleteGoodOfCart(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void deleteGoodOfCart(String openid,Integer goodId,HttpServletResponse response){
 		//移除商品
+		Integer fontid = frontService.checkOpenID(openid);
 		SimpleCart cart = new SimpleCart();
 		cart.setUserId(fontid);
 		cart.setGoodId(goodId);
@@ -101,8 +108,9 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="cancelGoodOfCart",method=RequestMethod.GET)
-	public void cancelGoodOfCart(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void cancelGoodOfCart(String openid,Integer goodId,HttpServletResponse response){
 		//取消打勾
+		Integer fontid = frontService.checkOpenID(openid);
 		SimpleCart cart = new SimpleCart();
 		cart.setUserId(fontid);
 		cart.setGoodId(goodId);

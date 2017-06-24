@@ -82,26 +82,21 @@ public class FrontUserController {
 
 	}
 
-	@RequestMapping(value = "getWeChantInfo", method = RequestMethod.POST)
-	private void getWeChantInfo(WeChatInfo we, HttpServletResponse response) {
+
+	private void getWeChantInfo(JSONObject we) {
 
 		FrontUser user = new FrontUser();
-		Integer count = frontService.checkOpenID(we.getOpenid());
+		Integer count = frontService.checkOpenID(we.getString("openid"));
 		if (count == null) {
-			user.setNickName(we.getNickname());
-			user.setPicPath(we.getHeadimgurl());
-			user.setOpenid(we.getOpenid());
+			user.setNickName(we.getString("nickname"));
+			user.setPicPath(we.getString("headimgurl"));
+			user.setOpenid(we.getString("openid"));
 			user.setUserStatus("0");
 
 			frontService.addFrontUser(user);
 		}
 
-		try {
-			response.getWriter().print("success");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 	}
 
 	@RequestMapping(value = "queryWeChatInfo")
@@ -124,6 +119,7 @@ public class FrontUserController {
 		JSONObject jsonObject1 = HttpClientUtil.httpRequest(string2, "GET",
 				null);
 		String weChatInfo = jsonObject1.toString();
+		getWeChantInfo(jsonObject1);
 		response.setContentType("text/json;charset=utf-8");
 		try {
 			response.getWriter().print(weChatInfo);

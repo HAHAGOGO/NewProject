@@ -20,4 +20,23 @@ public class BackUserDAOImpl extends SqlSessionDaoSupport implements IBackUserDA
 		return one;
 	}
 
+	@Override
+	public boolean addBackUser(String loginname, String loginpwd,
+			String realname) {
+		// TODO Auto-generated method stub
+		HashMap<String,String> map = new HashMap<>();
+		map.put("loginname", loginname);
+		map.put("loginpwd",loginpwd );
+		map.put("realname", realname);
+		int i = getSqlSession().insert("com.pojo.BackUser.addBackUser", map);
+		return i>0?true:false;
+	}
+
+	@Override
+	public boolean queryBackUserByLoginname(String loginname) {
+		// TODO Auto-generated method stub
+		Integer one = getSqlSession().selectOne("com.pojo.BackUser.queryBackUserByLoginname",loginname);
+		return one>0?true:false;
+	}
+
 }

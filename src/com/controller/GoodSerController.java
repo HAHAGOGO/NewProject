@@ -48,17 +48,21 @@ public class GoodSerController {
 		if (styleId==null||styleId==0) {
 			styleId=null;
 		}
-		List<GoodInfo> goods = goodInfoServiceImpl.findAll(styleId, cp, ps);
-		int count = goodInfoServiceImpl.getCount(styleId);
-		List<GoodStyle> goodStyles = goodStyleServiceImpl.getAllType();
-		int sumpage=(count-1)/ps+1;
-		model.addAttribute("styleId", styleId);
-		model.addAttribute("cp", cp);
-		model.addAttribute("ps", ps);
-		model.addAttribute("goods", goods);
-		model.addAttribute("sumpage", sumpage);
-		model.addAttribute("count", count);
-		model.addAttribute("goodStyles", goodStyles);
+		try {
+			List<GoodInfo> goods = goodInfoServiceImpl.findAll(styleId, cp, ps);
+			int count = goodInfoServiceImpl.getCount(styleId);
+			List<GoodStyle> goodStyles = goodStyleServiceImpl.getAllType();
+			int sumpage=(count-1)/ps+1;
+			model.addAttribute("styleId", styleId);
+			model.addAttribute("cp", cp);
+			model.addAttribute("ps", ps);
+			model.addAttribute("goods", goods);
+			model.addAttribute("sumpage", sumpage);
+			model.addAttribute("count", count);
+			model.addAttribute("goodStyles", goodStyles);
+		} catch (Exception e) {
+			
+		}
 		return "file/zwj/ser/files/list_goods";
 	}
 	/**
@@ -70,21 +74,26 @@ public class GoodSerController {
 	 */
 	@RequestMapping("sgd")
 	public String skipGoodDetail(Integer goodId,String option,Model model){
-		List<GoodStyle> goodStyle = goodStyleServiceImpl.getAllType();
-		List<ServiceType> serviceTypes = goodServiceImpl.getAllServiceAndChecked(goodId);
-		if ("update".equals(option)) {
-			model.addAttribute("type", "±à¼­");
-			GoodInfo goodInfo = goodInfoServiceImpl.findByGoodId(goodId);
-			Integer styleId = goodInfo.getStyleId();
-			List<String> goodservice = goodServiceImpl.getGoodServiceName(goodId);
-			goodInfo.setServiceType(goodservice);
-			model.addAttribute("good", goodInfo);
-			model.addAttribute("sId", styleId);
-		}else {
-			model.addAttribute("type", "Ìí¼Ó");
+		try {
+			List<GoodStyle> goodStyle = goodStyleServiceImpl.getAllType();
+			List<ServiceType> serviceTypes = goodServiceImpl.getAllServiceAndChecked(goodId);
+			if ("update".equals(option)) {
+				model.addAttribute("type", "±à¼­");
+				GoodInfo goodInfo = goodInfoServiceImpl.findByGoodId(goodId);
+				Integer styleId = goodInfo.getStyleId();
+				List<String> goodservice = goodServiceImpl.getGoodServiceName(goodId);
+				goodInfo.setServiceType(goodservice);
+				model.addAttribute("good", goodInfo);
+				model.addAttribute("sId", styleId);
+			}else {
+				model.addAttribute("type", "Ìí¼Ó");
+			}
+			model.addAttribute("allService", serviceTypes);
+			model.addAttribute("goodStyle", goodStyle);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
 		}
-		model.addAttribute("allService", serviceTypes);
-		model.addAttribute("goodStyle", goodStyle);
 		return "file/zwj/ser/goods/gooddetail";
 	}
 	/**
