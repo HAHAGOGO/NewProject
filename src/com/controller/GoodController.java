@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
 import com.pojo.GoodImage;
 import com.pojo.GoodInfo;
 import com.pojo.GoodStyle;
@@ -44,8 +45,9 @@ public class GoodController {
 		if (goodInfo!=null) {
 			List<String> goodService = getGoodService(goodId);
 			goodInfo.setServiceType(goodService);
-			JSONObject jsonObject = JSONObject.fromObject(goodInfo);
-			writer.print(jsonObject.toString());
+			Gson gson = new Gson();
+			String json = gson.toJson(goodInfo);
+			writer.print(json);
 		}else{
 			writer.print("no");
 		}
@@ -63,8 +65,11 @@ public class GoodController {
 		response.setCharacterEncoding("utf-8");
 		List<GoodStyle> types = goodStyleServiceImpl.getAllType();
 		PrintWriter writer = response.getWriter();
-		JSONArray jsonArray = JSONArray.fromObject(types);
-		writer.println(jsonArray.toString());
+		Gson gson = new Gson();
+		String json = gson.toJson(types);
+		writer.println(json);
+		writer.flush();
+		writer.close();
 	}
 	/**
 	 * 根据商品类别ID获取商品
@@ -80,8 +85,11 @@ public class GoodController {
 		response.setCharacterEncoding("utf-8");
 		List<GoodInfo> goods = goodInfoServiceImpl.findAll(styleId, cp, ps);
 		PrintWriter writer = response.getWriter();
-		JSONArray jsonArray = JSONArray.fromObject(goods);
-		writer.println(jsonArray.toString());
+		Gson gson = new Gson();
+		String json = gson.toJson(goods);
+		writer.println(json);
+		writer.flush();
+		writer.close();
 	}
 	/**
 	 * 根据商品id获取图片
@@ -94,9 +102,10 @@ public class GoodController {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("utf-8");
 		List<GoodImage> list = goodImageServiceImpl.getGoodImageByGoodId(goodId);
-		JSONArray jsonArray = JSONArray.fromObject(list);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
 		PrintWriter writer = response.getWriter();
-		writer.print(jsonArray.toString());
+		writer.print(json);
 		writer.flush();
 		writer.close();
 	}
