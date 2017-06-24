@@ -8,7 +8,7 @@
 <head>
 <jsp:include page="../../../../util/base.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>项目管理系统</title>
+<title>商品管理系统</title>
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <style type="text/css">
 body {
@@ -114,6 +114,19 @@ html {
 			location.href="gsc/deleteall?delId="+str+"&ps="+ps;
 		}
 	}
+	//设置首页轮播图
+	function setTurn(goodId){
+		var flag=confirm("确定设为首页轮播图？");
+		if(flag){
+			$.get("gsc/sti?goodId="+goodId,function(data){
+				if(data=="ok"){
+					alert('设置成功');
+				}else{
+					alert('设置失败了');
+				}
+			});
+		}
+	}
 	$(function(){
 		$("#sl_day").change(function(){
 			var styleId=$(this).val();
@@ -171,11 +184,11 @@ html {
 							<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
 								<tr>
 									<td height="20">
-										<span class="newfont07">
+										<!-- <span class="newfont07">
 											选择：<a href="javascript:void(0)" class="right-font08" onclick="selectAll();">全选</a>
 											-<a href="javascript:void(0)" class="right-font08" onclick="unselectAll();">反选</a>
-										</span>
-										<input name="Submit" type="button" class="right-button08" value="删除商品" onclick="deleteAll()"/>
+										</span> -->
+										<!-- <input name="Submit" type="button" class="right-button08" value="删除商品" onclick="deleteAll()"/> -->
 										<input name="Submit2" type="button" class="right-button08" value="添加商品" onclick="addgoods()" />
 									</td>
 								</tr>
@@ -189,7 +202,7 @@ html {
 												<td height="22" colspan="7" align="center" style="font-size: 16px">商品详细列表</td>
 											</tr>
 											<tr bgcolor="#EEEEEE">
-												<td width="4%" align="center" height="30">选择</td>
+												<!-- <td width="4%" align="center" height="30">选择</td> -->
 												<td width="4%" align="center">商品ID</td>
 												<td width="5%" align="center">商品名</td>
 												<td width="5%" align="center">原价</td>
@@ -205,7 +218,7 @@ html {
 											
 											<c:forEach var="g" items="${goods }">
 												<tr bgcolor="#FFFFFF">
-													<td height="20"><input type="checkbox" name="delid" value="${g.goodId }" class="cb"/></td>
+													<%-- <td height="20"><input type="checkbox" name="delid" value="${g.goodId }" class="cb"/></td> --%>
 													<td>${g.goodId }</td>
 													<td><a href="gsc/sgd?goodId=${g.goodId }&option=update">${g.goodName }</a></td>
 													<td>${g.goodOriginalPrice }</td>
@@ -216,7 +229,7 @@ html {
 													<td>${fn:substring(g.goodDesc,0,20)}${fn:length(g.goodDesc)>20?"...":"" }</td>
 													<td>${g.goodStatus==1?"上架":"下架" }</td>
 													<td>
-														<a href="javascript:deleteGood('${g.goodId }')">删除</a>
+														<a href="javascript:setTurn('${g.goodId} ')">设为首页轮播图</a>
 													</td>
 												</tr>
 											</c:forEach>

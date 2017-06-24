@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,13 +67,15 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		if (goodId < 0) {
 			return -1;
 		}
-
-		for (int i = 0; i < serviceId.length; i++) {
-			boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
-			if (!flag) {
-				return -1;
+		if (serviceId!=null&&serviceId.length>0) {
+			for (int i = 0; i < serviceId.length; i++) {
+				boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
+				if (!flag) {
+					return -1;
+				}
 			}
 		}
+		
 		return goodId;
 	}
 
@@ -83,29 +86,30 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 		deleteFile(goodId, req);
 		
 		//删除商品图片表相关数据
-		boolean delImgFlag = goodImageDaoImpl.deleteImage(goodId);
-		if (!delImgFlag) {
-			return false;
-		}
+		goodImageDaoImpl.deleteImage(goodId);
+		
 		//重新写入文件并保存数据库
 		saveFile(goodId, req);
 		//删除关系表相关数据
-		boolean deleteFlag = goodServiceRelaxDaoImpl.deleteRelax(goodId);
-		if (!deleteFlag) {
-			return false;
-		}
+		goodServiceRelaxDaoImpl.deleteRelax(goodId);
+		
 		//插入关系表相关数据
-		for (int i = 0; i < serviceId.length; i++) {
-			boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
-			if (!flag) {
-				return false;
+		if (serviceId!=null&&serviceId.length>0) {
+			for (int i = 0; i < serviceId.length; i++) {
+				boolean flag = goodServiceRelaxDaoImpl.insertRelax(goodId, Integer.valueOf(serviceId[i]));
+				if (!flag) {
+					System.out.println("添加关系表相关数据失败了");
+					return false;
+				}
 			}
 		}
+		GoodInfo g = saveImg(goodInfo, req);
 		//修改商品信息相关数据
-		boolean updateFlag = goodInfoDaoImpl.updateGood(goodInfo);
+		boolean updateFlag = goodInfoDaoImpl.updateGood(g);
 		if (updateFlag) {
 			return true;
 		}
+		System.out.println("修改商品信息相关数据失败了");
 		return false;
 	}
 
@@ -168,11 +172,10 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 	private GoodInfo saveImg(GoodInfo g, HttpServletRequest req) {
 		MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) req;
 		List<MultipartFile> files = mhr.getFiles("pic");
-		if (files.size() > 0) {
-			g.setGoodPicPath("image/goods/" + files.get(0).getOriginalFilename());
-		} else {
-			g.setGoodPicPath("image/goods/");
-		}
+		String originalFilename = files.get(0).getOriginalFilename();
+		String[] split = originalFilename.split("\\.");
+		String fileName = DigestUtils.md5Hex(split[0])+"."+split[1];
+		g.setGoodPicPath("image/goods/" + fileName);
 		return g;
 	}
 	/**
@@ -187,12 +190,18 @@ public class GoodInfoServiceImpl implements IGoodInfoService {
 			List<MultipartFile> files = mhr.getFiles("pic");
 			for (int i = 0; i < files.size(); i++) {
 				MultipartFile pic = files.get(i);
-				File file = new File(realpath + "/" + pic.getOriginalFilename());
+				if (pic.isEmpty()) {
+					continue;
+				}
+				String originalFilename = pic.getOriginalFilename();
+				String[] split = originalFilename.split("\\.");
+				String fileName = DigestUtils.md5Hex(split[0])+"."+split[1];
+				File file = new File(realpath + "/" + fileName);
 				FileCopyUtils.copy(pic.getInputStream(), new FileOutputStream(file));
 				
 				GoodImage goodImage = new GoodImage();
 				goodImage.setGoodId(goodId);
-				goodImage.setPicPath("image/goods/" + pic.getOriginalFilename());
+				goodImage.setPicPath("image/goods/" + fileName);
 				goodImage.setPicStatus("1");
 				boolean imgFlag = goodImageDaoImpl.addImage(goodImage);
 				if (!imgFlag) {

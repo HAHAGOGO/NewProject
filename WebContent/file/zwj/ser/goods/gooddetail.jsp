@@ -26,6 +26,7 @@
 		var goodName=$("#goodName").val();
 		if(goodName==null||goodName.trim()==""){
 			alert("商品名不能为空");
+			
 			$("#goodName").select();
 			return;
 		}
@@ -126,7 +127,7 @@
 												</td>
 											</tr>
 											<tr>
-												<td nowrap align="right">上传图片:</td>
+												<td nowrap align="right"><span class="red"> *</span>上传图片:</td>
 												<td>
 													<input type="file" name="pic" class="imgfile"/>
 													<input type="file" name="pic" class="imgfile"/>
@@ -137,25 +138,24 @@
 												</td>
 												<td align="right">是否包邮:</td>
 												<td>
-													<input type="radio" name="freeDelivery" value="1" ${good.freeDelivery==1?"checked":"" } />是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<input type="radio" name="freeDelivery" value="1" ${good.freeDelivery==1||good.freeDeliver==null?"checked":"" } />是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													<input type="radio" name="freeDelivery" value="0" ${good.freeDelivery==0?"checked":"" }/>不是<br>
-								
 												</td>
 											</tr>
 											<tr>
-												<td nowrap align="right">商品单位:</td>
+												<td nowrap align="right"><span class="red"> *</span>商品单位:</td>
 												<td>
 													<input id="specification" type="text" name="specification" value="${good.specification }">
 												</td>
 												<td align="right">是否上架:</td>
 												<td>
-													<input type="radio" name="goodStatus" value="1" ${good.goodStatus==1?"checked":"" }/>上架&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<input type="radio" name="goodStatus" value="1" ${good.goodStatus==1||good.goodStatus==null?"checked":"" }/>上架&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													<input type="radio" name="goodStatus" value="0" ${good.goodStatus==0?"checked":"" }/>下架<br>
 								
 												</td>
 											</tr>
 											<tr>
-												<td nowrap align="right" height="20px"><span class="red"> *</span>商品服务:</td>
+												<td nowrap align="right" height="20px">商品服务:</td>
 												<td colspan="3">
 													<c:forEach var="s" items="${allService }">
 														<input type="checkbox" name="goodService" value="${s.serviceId }" ${s.checkStatus==1?"checked":"" }>${s.serviceName }&nbsp;&nbsp;&nbsp;
@@ -167,6 +167,10 @@
 												<td colspan="3">
 													<textarea id="goodDesc" name="goodDesc" rows="5" cols="80" >${good.goodDesc }</textarea>
 												</td>
+											</tr>
+											<tr>
+												<td nowrap align="right" height="20px"><a href="gsc/cgi?goodId=${good.goodId }">${good.goodId!=null?"查看图片详情":"" }</a></td>
+												
 											</tr>
 										</table>
 										<br />

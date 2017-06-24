@@ -4,4 +4,12 @@
 	<select id="getAllType" resultType="com.pojo.GoodStyle">
 		select styleid as styleId,style_name as styleName from good_style
 	</select>
+	
+	<insert id="insertGoodStyle" parameterType="com.pojo.GoodStyle">
+		insert into good_style(style_name) values(#{styleName})
+	</insert>
+	
+	<update id="updateGoodStyleName" parameterType="com.pojo.GoodStyle">
+		update good_style set style_name=#{styleName} where styleid=#{styleId}
+	</update>
 </mapper>
