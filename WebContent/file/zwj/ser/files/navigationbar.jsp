@@ -49,6 +49,7 @@ $(function(){
 				<option value="5" ${ps==5?"selected":"" }>5</option>
 				<option value="10" ${ps==10?"selected":"" }>10</option>
 				<option value="15" ${ps==15?"selected":"" }>15</option>
+				<option value="15" ${ps==20?"selected":"" }>20</option>
 			</select>  条
 		</td>
 		<td width="49%" align="right">

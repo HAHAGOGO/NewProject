@@ -8,4 +8,7 @@ public interface IGoodService {
 	List<String> getGoodServiceName(Integer goodId);
 	ServiceType getAllService(Integer goodId);
 	List<ServiceType> getAllServiceAndChecked(Integer goodId);
+	
+	boolean insertService(String serviceName);
+	boolean updateService(Integer serviceId, String serviceName);
 }

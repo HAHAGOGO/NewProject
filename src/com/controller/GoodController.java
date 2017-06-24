@@ -47,7 +47,7 @@ public class GoodController {
 			JSONObject jsonObject = JSONObject.fromObject(goodInfo);
 			writer.print(jsonObject.toString());
 		}else{
-			writer.print("没有更多数据");
+			writer.print("no");
 		}
 		writer.flush();
 		writer.close();
