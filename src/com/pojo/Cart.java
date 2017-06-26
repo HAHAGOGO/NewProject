@@ -12,7 +12,8 @@ import java.util.List;
 public class Cart {
 	private Integer cartId;
 	private FrontUser user;//一个购物车对应一个用户
-	private List<GoodInfo> goodList;//一个购物车中有多个商品
+//	private List<GoodInfo> goodList;//一个购物车中有多个商品
+	private GoodInfo goodInfo;//一个购物车只有一类商品
 	private double total;//总价钱
 	private double realTotal;//根据用户是否选中来计算
 	private int orderId;//订单编号
@@ -28,12 +29,12 @@ public class Cart {
 	public void setUser(FrontUser user) {
 		this.user = user;
 	}
-	public List<GoodInfo> getGoodList() {
-		return goodList;
-	}
-	public void setGoodList(List<GoodInfo> goodList) {
-		this.goodList = goodList;
-	}
+//	public List<GoodInfo> getGoodList() {
+//		return goodList;
+//	}
+//	public void setGoodList(List<GoodInfo> goodList) {
+//		this.goodList = goodList;
+//	}
 	public double getTotal() {
 		return total;
 	}
@@ -54,21 +55,34 @@ public class Cart {
 	}
 	//初始化，计算总价钱
 		public void init(){
-			for(int i=0;i<goodList.size();++i){
-				GoodInfo good = goodList.get(i);
-				double tempPrice = good.getGoodDiscountedPrice()*good.getCartNumber();
-				total+=tempPrice;
-				//只有当选中时，才加到realToal中
-				if(good.getCartFlag()==1){
-					realTotal+=tempPrice;
-				}
-			}
+			System.out.println(goodInfo);
+		total=goodInfo.getGoodOriginalPrice()*goodInfo.getCartNumber();
+		double tempPrice=goodInfo.getGoodDiscountedPrice()*goodInfo.getCartNumber();
+		if(goodInfo.getCartFlag()==1){
+			realTotal+=tempPrice;
 		}
+//			for(int i=0;i<goodList.size();++i){
+//				GoodInfo good = goodList.get(i);
+//				total=good.getGoodOriginalPrice()*good.getCartNumber();
+//				double tempPrice = good.getGoodDiscountedPrice()*good.getCartNumber();
+//				//只有当选中时，才加到realToal中
+//				if(good.getCartFlag()==1){
+//					realTotal+=tempPrice;
+//				}
+//			}
+		}
+	
 		@Override
 		public String toString() {
-			return "Cart [cartId=" + cartId + ", user=" + user + ", goodList="
-					+ goodList + ", total=" + total + ", realTotal="
+			return "Cart [cartId=" + cartId + ", user=" + user + ", goodInfo="
+					+ goodInfo + ", total=" + total + ", realTotal="
 					+ realTotal + ", orderId=" + orderId + "]";
+		}
+		public GoodInfo getGoodInfo() {
+			return goodInfo;
+		}
+		public void setGoodInfo(GoodInfo goodInfo) {
+			this.goodInfo = goodInfo;
 		}
 	
 

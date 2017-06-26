@@ -10,22 +10,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<association property="user" javaType="com.pojo.FrontUser">
 		<id  property="frontid" column="userId"/>
 	</association>
-	<collection property="goodList" ofType="com.pojo.GoodInfo">
+	<association property="goodInfo" javaType="com.pojo.GoodInfo">
 		<id  property="goodId" column="goodId"/>
 		<result property="cartNumber" column="cartNumber"/>
 		<result property="cartFlag" column="cartFlag"/>
+		<result property="styleId" column="styleId"/>
 		<result property="goodName" column="goodName" />
-		<result property="goodDiscountedPrice" column="goodDiscountedPrice"/>
+		<result property="goodOriginalPrice" column="goodOriginalPrice"/>
 		<result property="goodPicPath" column="goodPicPath"/>
+		<result property="goodDiscountedPrice" column="goodDiscountedPrice"/>
 		<result property="goodDesc" column="goodDesc"/>
 		<result property="specification" column="specification"/>
-
-	</collection>
+		<result property="freeDelivery" column="freeDelivery"/>
+		<result property="salsNum" column="salsNum"/>
+		<result property="goodStatus" column="goodStatus"/>
+		
+	</association>
 </resultMap>
 
 <!-- 插入数据 -->
 <insert id="insertCart" parameterType="com.pojo.SimpleCart">
-insert into cart(userId,goodId,number) values(#{userId},#{goodId},#{cartNumber})
+insert into cart (userId,goodId,number,status) values(#{userId},#{goodId},#{cartNumber},0)
 </insert>
 
 <!-- 查询某个用户对应 的购物车信息，包括购物车内的商品信息 -->
@@ -36,11 +41,16 @@ insert into cart(userId,goodId,number) values(#{userId},#{goodId},#{cartNumber})
 	c.number as cartNumber,
 	c.status as cartFlag,
 	g.goodid as goodId,
+	g.styleid as styleId,
 	g.good_name as goodName,
-	g.good_discounted_price as goodDiscountedPrice,
+	g.good_original_price as goodOriginalPrice,
 	g.good_pic_path as goodPicPath,
+	g.good_discounted_price as goodDiscountedPrice,
+	g.good_desc as goodDesc,
 	g.specification,
-	g.good_desc as goodDesc
+	g.free_delivery as freeDelivery,
+	g.sals_num as salsNum,
+	g.good_status as goodStatus
 	from cart c,good_info g 
 	where c.goodId = g.goodid and c.userId=#{frontid} 
 </select>
@@ -53,11 +63,16 @@ insert into cart(userId,goodId,number) values(#{userId},#{goodId},#{cartNumber})
 	c.number as cartNumber,
 	c.status as cartFlag,
 	g.goodid as goodId,
+	g.styleid as styleId,
 	g.good_name as goodName,
-	g.good_discounted_price as goodDiscountedPrice,
+	g.good_original_price as goodOriginalPrice,
 	g.good_pic_path as goodPicPath,
+	g.good_discounted_price as goodDiscountedPrice,
+	g.good_desc as goodDesc,
 	g.specification,
-	g.good_desc as goodDesc
+	g.free_delivery as  freeDelivery,
+	g.sals_num as salsNum,
+	g.good_status as goodStatus
 	from cart c,good_info g 
 	where c.goodId =g.goodid and c.userId=#{frontid } and c.status=1
 </select>
@@ -72,34 +87,37 @@ select count(*) from cart where userId=#{userId} and goodId=#{goodId}
 update cart set number=number+#{cartNumber} where userId=#{userId} and goodId=#{goodId}
 </update>
 
-<!-- 购物车中对应商品数量-1 -->
+<!-- 设置商品数量 -->
 <update id="setCartNumber" parameterType="com.pojo.SimpleCart">
 update cart set number=#{cartNumber} where userId=#{userId} and goodId=#{goodId}
 </update>
 
-<!--删除其中的一个商品  -->
+<!--删除其中的一类商品  -->
 <delete id="removreGoodOfCart" parameterType="com.pojo.SimpleCart">
 delete from cart where userId=#{userId} and goodId=#{goodId}
 </delete>
 
 <!--插入订单后，删除购物车中对应商品  -->
-<delete id="removreGoodOfCartAfterOrder" parameterType="com.pojo.Cart">
+<!-- <delete id="removreGoodOfCartAfterOrder" parameterType="com.pojo.Cart">
 delete from cart where userId=#{user.frontid} and goodId in
 (
 	<foreach collection="goodList" item="goodInfo" separator=",">
 	#{goodInfo.goodId}
 	</foreach>
 )
+</delete> -->
+<delete id="removreGoodOfCartAfterOrder" parameterType="com.pojo.Cart">
+delete from cart where userId=#{user.frontid} and status=1
 </delete>
 
 <!--将购物车中的某个商品的状态改为选中  -->
 <update id="confirmGoodOfCart" parameterType="com.pojo.SimpleCart">
-update cart set flag=1 where userId=#{userId} and goodId=#{goodId}
+update cart set status=1 where userId=#{userId} and goodId=#{goodId}
 </update>
 
 <!-- 将购物车中的某个商品的状态改为不选中 -->
 <update id="cancelGoodOfCart" parameterType="com.pojo.SimpleCart">
-update cart set flag=0 where userId=#{userId} and goodId=#{goodId}
+update cart set status=0 where userId=#{userId} and goodId=#{goodId}
 </update>
 
 </mapper>

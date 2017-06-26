@@ -24,13 +24,13 @@ import com.utils.JsonUtil;
 public class CartController {
 	
 	private ICartService cartServiceImpl;
-	@RequestMapping(value="insertCart",method=RequestMethod.POST)
-	public void insertCart(Integer fontid,Integer goodId,
+	@RequestMapping(value="insertCart",method=RequestMethod.GET)
+	public void insertCart(Integer frontid,Integer goodId,
 			@RequestParam(defaultValue="1")Integer cartNumber,HttpServletResponse response){
 		//传过来的cart包含userId，goodId的信息,cartNumber默认为1
 		//需要先判断，购物车内是否已有了此商品
 		SimpleCart cart = new SimpleCart();
-		cart.setUserId(fontid);
+		cart.setUserId(frontid);
 		cart.setGoodId(goodId);
 		cart.setCartNumber(cartNumber);
 		int status = 0;
@@ -55,11 +55,11 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="setCartNumber",method=RequestMethod.GET)
-	public void goodOfCartSub1(Integer fontid,Integer goodId,
+	public void goodOfCartSub1(Integer frontid,Integer goodId,
 			@RequestParam(defaultValue="1")Integer number,HttpServletResponse response){
 		//设置商品数量
 		SimpleCart cart = new SimpleCart();
-		cart.setUserId(fontid);
+		cart.setUserId(frontid);
 		cart.setGoodId(goodId);
 		cart.setCartNumber(number);
 		boolean flag = cartServiceImpl.setCartNumber(cart);
@@ -72,10 +72,10 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="removeGoodOfCart",method=RequestMethod.GET)
-	public void deleteGoodOfCart(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void deleteGoodOfCart(Integer frontid,Integer goodId,HttpServletResponse response){
 		//移除商品
 		SimpleCart cart = new SimpleCart();
-		cart.setUserId(fontid);
+		cart.setUserId(frontid);
 		cart.setGoodId(goodId);
 		boolean flag = cartServiceImpl.removreGoodOfCart(cart);
 		try {
@@ -102,10 +102,10 @@ public class CartController {
 		}
 	}
 	@RequestMapping(value="cancelGoodOfCart",method=RequestMethod.GET)
-	public void cancelGoodOfCart(Integer fontid,Integer goodId,HttpServletResponse response){
+	public void cancelGoodOfCart(Integer frontid,Integer goodId,HttpServletResponse response){
 		//取消打勾
 		SimpleCart cart = new SimpleCart();
-		cart.setUserId(fontid);
+		cart.setUserId(frontid);
 		cart.setGoodId(goodId);
 		boolean flag = cartServiceImpl.cancelGoodOfCart(cart);
 		try {
