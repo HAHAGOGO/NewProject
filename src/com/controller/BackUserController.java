@@ -24,7 +24,7 @@ public class BackUserController {
 		this.backUserServiceImpl = backUserServiceImpl;
 	}
 
-	@RequestMapping(value = "backLogin", method = RequestMethod.POST)
+	@RequestMapping(value = "backLogin", method = {RequestMethod.POST,RequestMethod.GET})
 	private String backLogin(String loginname, String loginpwd,
 			HttpSession session) {
 		BackUser user = backUserServiceImpl.queryBackUser(loginname, loginpwd);
