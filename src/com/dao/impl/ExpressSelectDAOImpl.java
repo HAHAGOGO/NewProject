@@ -20,9 +20,7 @@ public class ExpressSelectDAOImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<ExpressSelect> findAll() {
-		return super.getSqlSession().selectOne("com.dao.IExpressSelectDao.findAll");
+		return super.getSqlSession().selectList("com.dao.IExpressSelectDao.findByAll");
 	}
-
-
 
 }

@@ -2,9 +2,6 @@ package com.dao;
 
 import java.util.List;
 
-
-import java.util.List;
-
 public interface IGoodServiceRelaxDao {
 	List<Integer> getGoodServiceId(Integer goodId);
 	boolean insertRelax(Integer goodId,Integer serviceId);
