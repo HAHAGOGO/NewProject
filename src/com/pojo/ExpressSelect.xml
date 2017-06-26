@@ -7,5 +7,11 @@
 		 		express_name,a.express_status as express_status
 		 from express_select a where expressid=#{expressid};
 	</select>
+	
+		<select id="findByAll"  resultType="com.pojo.ExpressSelect">
+		select a.expressid as expressid,a.express_name as
+		 		express_name,a.express_status as express_status
+		 from express_select a ;
+	</select>
 </mapper>
 

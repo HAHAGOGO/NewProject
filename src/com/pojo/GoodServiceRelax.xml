@@ -10,4 +10,11 @@
 	<delete id="deleteRelax" parameterType="java.lang.Integer">
 		delete from good_service_relax where goodid=#{goodId}
 	</delete>
+	<delete id="deleteAll" parameterType="int[]">
+		delete from good_service_relax where goodid in 
+		<foreach collection="array" item="delId" open="(" separator="," close=")">
+			#{delId}
+		</foreach>
+	</delete>
+	
 </mapper>

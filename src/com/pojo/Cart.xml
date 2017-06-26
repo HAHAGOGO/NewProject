@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 查询一个用户中的购物车信息，包括商品 -->
 <resultMap type="com.pojo.Cart" id="CartAndGood">
 	<id  property="cartId" column="cartId"/>
+
 	<association property="user" javaType="com.pojo.FrontUser">
 		<id  property="frontid" column="userId"/>
 	</association>
@@ -97,15 +98,7 @@ update cart set number=#{cartNumber} where userId=#{userId} and goodId=#{goodId}
 delete from cart where userId=#{userId} and goodId=#{goodId}
 </delete>
 
-<!--插入订单后，删除购物车中对应商品  -->
-<!-- <delete id="removreGoodOfCartAfterOrder" parameterType="com.pojo.Cart">
-delete from cart where userId=#{user.frontid} and goodId in
-(
-	<foreach collection="goodList" item="goodInfo" separator=",">
-	#{goodInfo.goodId}
-	</foreach>
-)
-</delete> -->
+
 <delete id="removreGoodOfCartAfterOrder" parameterType="com.pojo.Cart">
 delete from cart where userId=#{user.frontid} and status=1
 </delete>

@@ -45,15 +45,22 @@
   		good_status as goodStatus 
   		from good_info 
 		<where>
-			<if test="styleid!=null">and styleid=#{styleId}</if>
+			<if test="styleId!=null">and styleId=#{styleId}</if>
 		</where>			  		
   		limit #{start},#{ps}
   	</select>
   	
+  	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(goodid) from good_info 
+		<where>
+			<if test="styleId!=null">styleid=#{styleId}</if>
+		</where>  		
+  	</select>
+  	
   	<insert id="addGood" parameterType="com.pojo.GoodInfo" useGeneratedKeys="true" keyProperty="goodId">
-  		insert into good_info(styleid,good_name,good_original_price,good_pic_path,
+  		insert into good_info(goodid,styleid,good_name,good_original_price,good_pic_path,
   		good_discounted_price,good_desc,specification,free_delivery,good_status) 
-  		values(#{styleId},#{goodName},#{goodOriginalPrice},#{goodPicPath},
+  		values(#{goodId},#{styleId},#{goodName},#{goodOriginalPrice},#{goodPicPath},
   		#{goodDiscountedPrice},#{goodDesc},#{specification},#{freeDelivery},#{goodStatus})
   	</insert>
   	
@@ -75,5 +82,12 @@
   	
   	<delete id="deleteGood" parameterType="java.lang.Integer">
   		delete from good_info where goodid=#{goodId}
+  	</delete>
+  	
+  	<delete id="deleteAll" parameterType="int[]">
+  		delete from good_info where goodid in 
+  		<foreach collection="array" item="delId" open="(" separator="," close=")">
+  			#{delId}
+  		</foreach>
   	</delete>
 </mapper>

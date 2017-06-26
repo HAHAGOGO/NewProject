@@ -9,6 +9,14 @@ public class ReceiptPerson {
 	private Area area;
 	private String addressinfo;
 	private String status;
+	private Integer areaid;
+	
+	public Integer getAreaid() {
+		return areaid;
+	}
+	public void setAreaid(Integer areaid) {
+		this.areaid = areaid;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -51,12 +59,15 @@ public class ReceiptPerson {
 	public void setAddressinfo(String addressinfo) {
 		this.addressinfo = addressinfo;
 	}
+	
 	@Override
 	public String toString() {
 		return "ReceiptPerson [pid=" + pid + ", pname=" + pname + ", phone="
 				+ phone + ", userid=" + userid + ", area=" + area
-				+ ", addressinfo=" + addressinfo + ", status=" + status + "]";
+				+ ", addressinfo=" + addressinfo + ", status=" + status
+				+ ", areaid=" + areaid + "]";
 	}
+	
 	
 
 }

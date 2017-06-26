@@ -6,7 +6,18 @@
   			turn_title as turnTitle,
   			image_path as imagePath,
   			image_link as imageLink,
-  			image_status as imageStatus 
+  			image_status as imageStatus,
+  			goodid as goodId 
   			from turn_image
   </select>
+  <select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(turnid) from turn_image
+  </select>
+  <insert id="inserTurnImage" parameterType="com.pojo.TurnImage">
+  	insert into turn_image(turn_title,image_path,image_link,image_status,goodid) 
+  	values(#{turnTitle},#{imagePath},#{imageLink},#{imageStatus},#{goodId})
+  </insert>
+  <delete id="deleteTurnImage" parameterType="java.lang.Integer">
+  	delete from turn_image where turnid=#{turnId}
+  </delete>
 </mapper>

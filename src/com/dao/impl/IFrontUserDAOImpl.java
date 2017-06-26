@@ -55,6 +55,34 @@ public class IFrontUserDAOImpl extends SqlSessionDaoSupport implements
 		int i = getSqlSession().insert("com.pojo.FrontUser.addFrontUser", user);
 		return i>0?true:false;
 	}
+
+	@Override
+	public boolean addCheckCode(Integer frontid, String code) {
+		// TODO Auto-generated method stub
+		HashMap<String,String> map = new HashMap<>();
+		map.put("frontid", frontid.toString());
+		map.put("checkcode",code);
+		System.out.println(frontid+"----"+code);
+		int i = getSqlSession().update("com.pojo.FrontUser.addCheckCode",map);
+		return i>0?true:false;
+	}
+
+	@Override
+	public boolean removeCheckCode(Integer frontid) {
+		// TODO Auto-generated method stub
+		int i = getSqlSession().delete("com.pojo.FrontUser.removeCheckCode", frontid);
+		return i>0?true:false;
+	}
+
+	@Override
+	public boolean matchCheckCode(Integer frontid, String code) {
+		// TODO Auto-generated method stub
+		HashMap<String,String> map = new HashMap<>();
+		map.put("frontid", frontid.toString());
+		map.put("checkcode",code);
+		Integer selectOne = getSqlSession().selectOne("com.pojo.FrontUser.matchCheckCode",map);
+		return selectOne>0?true:false;
+	}
 	
 	
 

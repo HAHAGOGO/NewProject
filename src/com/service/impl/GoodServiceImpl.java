@@ -1,5 +1,4 @@
 package com.service.impl;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ public class GoodServiceImpl implements IGoodService {
 	@Override
 	public List<String> getGoodServiceName(Integer goodId) {
 		List<Integer> goodServiceId = goodServiceRelaxDaoImpl.getGoodServiceId(goodId);
-		System.out.println(goodServiceId);
 		return goodServiceDaoImpl.getGoodServiceName(goodServiceId);
 	}
 	@Override
@@ -42,6 +40,14 @@ public class GoodServiceImpl implements IGoodService {
 		}
 		return list;
 	}
+	@Override
+	public boolean insertService(String serviceName) {
+		return goodServiceDaoImpl.insertService(serviceName);
+	}
+	@Override
+	public boolean updateService(Integer serviceId, String serviceName) {
+		return goodServiceDaoImpl.updateService(serviceId, serviceName);
+	}
 	public IGoodServiceDao getGoodServiceDaoImpl() {
 		return goodServiceDaoImpl;
 	}
@@ -54,7 +60,6 @@ public class GoodServiceImpl implements IGoodService {
 	public void setGoodServiceRelaxDaoImpl(IGoodServiceRelaxDao goodServiceRelaxDaoImpl) {
 		this.goodServiceRelaxDaoImpl = goodServiceRelaxDaoImpl;
 	}
-	
 	
 	
 	

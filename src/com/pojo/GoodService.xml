@@ -13,4 +13,10 @@
 	<select id="getAllServiceAndChecked" resultType="com.vo.ServiceType" >
 		select serviceid as serviceId,ser_type as serviceName from good_service
 	</select>
+	<insert id="insertService" parameterType="java.lang.String">
+		insert into good_service(ser_type) values(#{serviceName})
+	</insert>
+	<update id="updateService" parameterType="java.util.Map">
+		update good_service set ser_type=#{serviceName} where serviceid=#{serviceId}
+	</update>
 </mapper>

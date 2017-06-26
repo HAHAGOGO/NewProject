@@ -15,4 +15,27 @@ public class TurnImageDaoImpl extends SqlSessionDaoSupport implements ITurnImage
 		return super.getSqlSession().selectList("com.pojo.TurnImage.getTurnImage");
 	}
 
+	@Override
+	public Integer getCount() {
+		return super.getSqlSession().selectOne("com.pojo.TurnImage.getCount");
+	}
+
+	@Override
+	public boolean inserTurnImage(TurnImage turnImage) {
+		int flag = super.getSqlSession().insert("com.pojo.TurnImage.inserTurnImage", turnImage);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteTurnImage(Integer turnId) {
+		int flag = super.getSqlSession().delete("com.pojo.TurnImage.deleteTurnImage", turnId);
+		if (flag>0) {
+			return true;
+		}
+		return false;
+	}
+
 }

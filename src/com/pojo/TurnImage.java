@@ -8,6 +8,7 @@ public class TurnImage implements Serializable{
 	private String imagePath;
 	private String imageLink;
 	private String imageStatus;
+	private Integer goodId;
 	public Integer getTurnId() {
 		return turnId;
 	}
@@ -37,6 +38,12 @@ public class TurnImage implements Serializable{
 	}
 	public void setImageStatus(String imageStatus) {
 		this.imageStatus = imageStatus;
+	}
+	public Integer getGoodId() {
+		return goodId;
+	}
+	public void setGoodId(Integer goodId) {
+		this.goodId = goodId;
 	}
 	
 }

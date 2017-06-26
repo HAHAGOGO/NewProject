@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into
 		receipt_person (p_name,phone,contact_userid,areaID,addressinfo)
 		values
-		(#{pname},#{phone},#{userid},#{area.areaID},#{addressinfo})
+		(#{pname},#{phone},#{userid},#{areaid},#{addressinfo})
 
 	</insert>
 	<select id="queryByID" parameterType="java.lang.Integer"
@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<update id="update" parameterType="com.pojo.ReceiptPerson">
 		update receipt_person set
-		p_name=#{pname},phone=#{phone},areaid=#{area.areaID},addressinfo=#{addressinfo}
+		p_name=#{pname},phone=#{phone},areaid=#{areaid},addressinfo=#{addressinfo}
 		where p_id=#{pid}
 	</update>
 	<update id="updateInit">

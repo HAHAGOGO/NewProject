@@ -1,4 +1,3 @@
-
 package com.controller;
 
 import java.io.IOException;
@@ -21,14 +20,18 @@ import com.pojo.City;
 import com.pojo.FrontUser;
 import com.pojo.Province;
 import com.pojo.ReceiptPerson;
+import com.pojo.WeChatInfo;
 import com.service.IAreaService;
 import com.service.ICityService;
+import com.service.IFrontUserService;
 import com.service.IProvinceService;
 import com.service.IReceiptPersonService;
 
 @Controller
 @RequestMapping("rpc")
 public class ReceiptPersonController {
+	@Resource(name = "frontService")
+	private IFrontUserService frontService;
 	@Resource(name = "irps")
 	private IReceiptPersonService irps;
 	private IAreaService areaServiceImpl;
@@ -60,10 +63,10 @@ public class ReceiptPersonController {
 	}
 
 	@RequestMapping(value = "ap", method = RequestMethod.POST)
-	private void addPerson(ReceiptPerson rp, HttpSession session,
-			HttpServletResponse response) {
-		System.out.println(rp);
-		rp.setUserid(((FrontUser) session.getAttribute("user")).getFrontid());
+	private void addPerson(ReceiptPerson rp, WeChatInfo we,
+			HttpSession session, HttpServletResponse response) {
+
+		rp.setUserid(2);
 		boolean b = irps.addReceiptPerson(rp);
 
 		try {
@@ -93,8 +96,8 @@ public class ReceiptPersonController {
 	}
 
 	@RequestMapping(value = "qbuid", method = RequestMethod.GET)
-	private void queryByUserId(Integer userid, HttpServletResponse response) {
-
+	private void queryByUserId(String openid, HttpServletResponse response) {
+		Integer userid = frontService.checkOpenID(openid);
 		List<ReceiptPerson> list = irps.queryByUserId(userid);
 		JSONArray array = JSONArray.fromObject(list);
 		try {
@@ -194,4 +197,3 @@ public class ReceiptPersonController {
 		writer.write(jsonArray.toString());
 	}
 }
-

@@ -14,11 +14,21 @@ public class GoodStyleServiceImpl implements IGoodStyleService {
 	public List<GoodStyle> getAllType() {
 		return goodStyleDaoImpl.getAllType();
 	}
+	
+	@Override
+	public boolean insertGoodStyle(String styleName) {
+		return goodStyleDaoImpl.insertGoodStyle(styleName);
+		
+	}
+	@Override
+	public boolean updateGoodStyleName(GoodStyle goodStyle) {
+		return goodStyleDaoImpl.updateGoodStyleName(goodStyle);
+	}
+	
 	public IGoodStyleDao getGoodStyleDaoImpl() {
 		return goodStyleDaoImpl;
 	}
 	public void setGoodStyleDaoImpl(IGoodStyleDao goodStyleDaoImpl) {
 		this.goodStyleDaoImpl = goodStyleDaoImpl;
 	}
-
 }
